@@ -2,20 +2,155 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+html{
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+*,*::before,*::after{
+  box-sizing: inherit;
+}
+body{
+  font-family: "Raleway",serif;
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+/* Globales */
+/* Son cosas que se aplicaran a todos el proyecto*/
+a{
+  text-decoration: none;
+  color: #000;
+}
+h1{
+  font-size: 5rem;
+  margin: 0 0 5rem 0;
+}
+h2,h3{
+  font-size: 3rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+.btn{
+  background-color: #dcdcdc;
+  display: block;
+  color: black;
+  margin: 1rem;
+  padding: .4rem 8.9rem;
+  transition: .3s ease-out;
+}
+
+.btn2{
+  padding: .2rem 4rem;
+  margin: 1rem;
+}
+
+.btn:hover{
+  background-color: #b1b1b1;
+}
+
+.Archivo{
+  background-color: #a7a7a7;
+}
+
+.inpt-grande{
+  width: 53.8rem;
+  margin: 0 1rem 0 0;
+}
+
+.inpt-grande2{
+  width: 72.5rem;
+}
+
+.inpt-grande3{
+  width: 35.2rem;
+}
+
+/* Nanegacion y titulo*/
+.contenedor-nav{
+  border-top: .1rem solid #e1e1e1;
+}
+
+.Titulo{
+  display: grid;
+  border-radius: .5rem;
+  grid-template-columns: repeat(2,1fr);
+  background-color: #e1e1e1;
+}
+
+.Titulo nav{
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.Titulo h1{
+  grid-column: 2/3;
+  display: flex;
+  justify-content: right;
+  padding: 0 2.5rem 0 0;
+  margin: 1.5rem 0;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2.5rem 0 2.5rem;
+  font-size: 2rem;
+}
+
+/* VENTAS */
+.buscar{
+  width: 100%;
+  margin: 1rem;
+}
+
+.table {
+  width: 100%;
+  padding: 0 .8rem;
+  
+}
+
+.busqueda{
+  display: flex;
+}
+
+.btn-group{
+  display: flex;
+  gap: 1.5rem;
+}
+
+th{
+  background-color: #5d5c5c;
+  color: white;
+  border: .1rem solid #000000;
+  padding: .5rem;
+  text-align: center;
+}
+
+td {
+  padding: .5rem;
+  text-align: right;
+  border: solid 0.1rem #000;
+}
+
+.form{
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  width: 15rem;
+  gap: 0 1rem;
+  margin: 0 1.2rem;
+}
+
+.inpt-tabla{
+  grid-row: 2/3;
 }
