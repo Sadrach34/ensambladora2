@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-export const Ventas = () => {
+async function getVentas() {
+    const res = await fetch('http://localhost:3000/api/note');
+    const data = await res.json();
+    return data;
+}
+
+export function Ventas() {
+    const [ventas, setVentas] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            const data = await getVentas();
+            setVentas(data);
+        }
+        fetchData();
+    }, []);
+
     return (
         <>
-            <div class="Archivo">
-                <div class="busqueda">
-                    <input class="buscar"></input>
-                    <a class="btn">Buscar</a>
+            <div className="Archivo">
+                <div className="busqueda">
+                    <input className="buscar"></input>
+                    <a className="btn">Buscar</a>
                 </div>
-                <table class="table">
+                <table className="table">
                     <thead>
                         <tr>
                             <th>id_ventas</th>
@@ -19,62 +35,36 @@ export const Ventas = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1000</td>
-                            <td>2021-10-01 10:00:00</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>2000</td>
-                            <td>2021-10-02 11:00:00</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>3000</td>
-                            <td>2021-10-03 12:00:00</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>4</td>
-                            <td>4</td>
-                            <td>4000</td>
-                            <td>2021-10-04 13:00:00</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>5</td>
-                            <td>5</td>
-                            <td>5000</td>
-                            <td>2021-10-05 14:00:00</td>
-                        </tr>
+                        {ventas.map((venta) => (
+                            <tr key={venta.id_ventas}>
+                                <td>{venta.id_ventas}</td>
+                                <td>{venta.id_cliente}</td>
+                                <td>{venta.id_componen}</td>
+                                <td>{venta.Monto}</td>
+                                <td>{venta.FechaHora}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
                 
-                <div class="form">
-                    <label class="label">id_ventas</label>
-                        <input class="inpt-tabla"></input>
-                    <label class="label">id_Cliente</label>
-                        <input class="inpt-tabla"></input>
-                    <label class="label">id_componente</label>
-                        <input class="inpt-tabla"></input>
-                    <label class="label">Monto</label>
-                        <input class="inpt-tabla"></input>
-                    <label class="label">FechaHora</label>
-                        <input class="inpt-tabla inpt-grande"></input>
+                <div className="form">
+                    <label className="label">id_ventas</label>
+                        <input className="inpt-tabla"></input>
+                    <label className="label">id_Cliente</label>
+                        <input className="inpt-tabla"></input>
+                    <label className="label">id_componente</label>
+                        <input className="inpt-tabla"></input>
+                    <label className="label">Monto</label>
+                        <input className="inpt-tabla"></input>
+                    <label className="label">FechaHora</label>
+                        <input className="inpt-tabla inpt-grande"></input>
                 </div>
 
-                <div class="btn-group">
-                    <a class="btn btn2">Agregar</a>
-                    <a class="btn btn2">Eliminar</a>
-                    <a class="btn btn2">Modificar</a>
-                    <a class="btn btn2">Salir</a>
+                <div className="btn-group">
+                    <a className="btn btn2">Agregar</a>
+                    <a className="btn btn2">Eliminar</a>
+                    <a className="btn btn2">Modificar</a>
+                    <a className="btn btn2">Salir</a>
                 </div>
             </div>
         </>

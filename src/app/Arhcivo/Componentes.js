@@ -3,12 +3,12 @@ import React from 'react';
 export const Componentes = () => {
     return (
         <>
-            <div class="Archivo">
-                <div class="busqueda">
-                    <input class="buscar"></input>
-                    <a class="btn">Buscar</a>
+            <div className="Archivo">
+                <div className="busqueda">
+                    <input className="buscar"></input>
+                    <a className="btn">Buscar</a>
                 </div>
-                <table class="table">
+                <table className="table">
                     <thead>
                         <tr>
                             <th>id_componen</th>
@@ -39,25 +39,25 @@ export const Componentes = () => {
                     </tbody>
                 </table>
                 
-                <div class="form">
-                    <label class="label">id_componen</label>
-                        <input class="inpt-tabla"></input>
+                <div className="form">
+                    <label className="label">id_componen</label>
+                        <input className="inpt-tabla"></input>
 
-                    <label class="label">Componente</label>
-                        <input class="inpt-tabla inpt-grande2"></input>
+                    <label className="label">Componente</label>
+                        <input className="inpt-tabla inpt-grande2"></input>
 
-                    <label class="label">Precio</label>
-                        <input class="inpt-tabla "></input>
+                    <label className="label">Precio</label>
+                        <input className="inpt-tabla "></input>
 
-                    <label class="label">Disponible</label>
-                        <input class="inpt-tabla"></input>
+                    <label className="label">Disponible</label>
+                        <input className="inpt-tabla"></input>
                 </div>
 
-                <div class="btn-group">
-                    <a class="btn btn2">Agregar</a>
-                    <a class="btn btn2">Eliminar</a>
-                    <a class="btn btn2">Modificar</a>
-                    <a class="btn btn2">Salir</a>
+                <div className="btn-group">
+                    <a className="btn btn2">Agregar</a>
+                    <a className="btn btn2">Eliminar</a>
+                    <a className="btn btn2">Modificar</a>
+                    <a className="btn btn2">Salir</a>
                 </div>
             </div>
         </>

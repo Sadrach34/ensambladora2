@@ -42,7 +42,7 @@ export const Reportes = () => {
     };
     return (
         <>
-            <div class="menu">
+            <div className="menu">
                 <a href="#" onClick={() => setActiveComponent('repVentas')}>Ventas</a>
                 <a href="#" onClick={() => setActiveComponent('repClientes')}>Clientes</a>
                 <a href="#" onClick={() => setActiveComponent('repComponentes')}>Componentes</a>
@@ -52,7 +52,7 @@ export const Reportes = () => {
                 <a href="#" onClick={() => setActiveComponent('repVenUsu')}>Ventas por Usuario</a>
             </div>
 
-            <section class="main">
+            <section className="main">
                 {renderComponent()}
             </section>
         </>

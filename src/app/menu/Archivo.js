@@ -32,15 +32,15 @@ export const Archivo = () => {
     };
     return (
         <>
-            <div class="menu">
+            <div className="menu">
                 <a href="#" onClick={() => setActiveComponent('ventas')}>Ventas</a>
                 <a href="#" onClick={() => setActiveComponent('clientes')}>Clientes</a>
                 <a href="#" onClick={() => setActiveComponent('componentes')}>Componentes</a>
                 <a href="#" onClick={() => setActiveComponent('usuarios')}>Usuarios</a>
                 <a href="#">Salir</a>
             </div>
-            {/* <Image src={Logo} alt="Descripción de la imagen" class='img'/> */}
-            <section class="main">
+            {/* <Image src={Logo} alt="Descripción de la imagen" className='img'/> */}
+            <section className="main">
                 {renderComponent()}
             </section>
         </>
