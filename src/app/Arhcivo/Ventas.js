@@ -5,7 +5,11 @@ async function getVentas() {
     const data = await res.json();
     return data;
 }
-
+/* Puedes mover aqui pero de preferencia no ya que si hay algun error volvere a la version anterior*/
+/* tu estaras en otra rama a la mia para no afectar a esta, tu rama dependera de esta solo es algo que te digo */
+/* mientras yo no este y haya un error con el front no se podra resolver hasta que yo vuelva */
+/* suerte :D */
+/* la bd no la podras ver ya que ocupo mover unas cosas para que puedas y vamos a batallar un poco para poder poner tu bd pero nada que no se arregle en 1 hora */
 export function Ventas() {
     const [ventas, setVentas] = useState([]);
 
