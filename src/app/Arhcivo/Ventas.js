@@ -49,15 +49,19 @@ export function Ventas() {
                 
                 <div className="form">
                     <label className="label">id_ventas</label>
-                        <input className="inpt-tabla"></input>
+                    <input className="inpt-tabla"></input>
+
                     <label className="label">id_Cliente</label>
-                        <input className="inpt-tabla"></input>
+                    <input className="inpt-tabla"></input>
+
                     <label className="label">id_componente</label>
-                        <input className="inpt-tabla"></input>
+                    <input className="inpt-tabla"></input>
+
                     <label className="label">Monto</label>
-                        <input className="inpt-tabla"></input>
+                    <input className="inpt-tabla"></input>
+
                     <label className="label">FechaHora</label>
-                        <input className="inpt-tabla inpt-grande"></input>
+                    <input className="inpt-tabla inpt-grande"></input>
                 </div>
 
                 <div className="btn-group">
