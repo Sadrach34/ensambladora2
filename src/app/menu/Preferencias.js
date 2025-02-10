@@ -18,11 +18,11 @@ export const Preferencias = () => {
             <div className="menu">
                 <a href="#">Cambiar contraseña</a>
                 <a href="#">Cambiar idioma</a>
-                <a href="#">Hacerca de ...</a>
+                <a href="#">Acerca de ...</a>
             </div>
 
             <section className="main">
-                {renderComponent()}
+                {/* {renderComponent()} */}
             </section>
         </>
     );
