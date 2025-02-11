@@ -1,6 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+async function getClientes() {
+    const res = await fetch('http://localhost:3000/api/note/clientes');
+    const data = await res.json();
+    return data;
+}
 
 export const Clientes = () => {
+    const [clientes, setClientes] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            const data = await getClientes();
+            setClientes(data);
+        }
+        fetchData();
+    }, []);
     return (
         <>
             <div className="Archivo">
@@ -18,24 +33,14 @@ export const Clientes = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>555-1234</td>
-                            <td>Juan Pérez</td>
-                            <td>Calle Falsa 123</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>555-5678</td>
-                            <td>María López</td>
-                            <td>Avenida Siempre Viva 742</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>555-8765</td>
-                            <td>Carlos García</td>
-                            <td>Bulevar de los Sueños Rotos 456</td>
-                        </tr>
+                    {clientes.map((cliente) => (
+                            <tr key={cliente.Id_cliente}>
+                                <td>{cliente.Id_cliente}</td>
+                                <td>{cliente.cliente}</td>
+                                <td>{cliente.Celular}</td>
+                                <td>{cliente.Domicilio}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
                 

@@ -43,13 +43,27 @@ export const Reportes = () => {
     return (
         <>
             <div className="menu">
-                <a href="#" onClick={() => setActiveComponent('repVentas')}>Ventas</a>
-                <a href="#" onClick={() => setActiveComponent('repClientes')}>Clientes</a>
-                <a href="#" onClick={() => setActiveComponent('repComponentes')}>Componentes</a>
-                <a href="#" onClick={() => setActiveComponent('repUsuarios')}>Usuarios</a>
-                <a href="#" onClick={() => setActiveComponent('repVenCompo')}>Ventas por Cliente</a>
-                <a href="#" onClick={() => setActiveComponent('repVenCli')}>Ventas por Componente</a>
-                <a href="#" onClick={() => setActiveComponent('repVenUsu')}>Ventas por Usuario</a>
+                <div className="mini-menu">
+                    <a href="#" onClick={() => setActiveComponent('repVentas')}>Ventas</a>
+                </div>
+                <div className="mini-menu">
+                    <a href="#" onClick={() => setActiveComponent('repClientes')}>Clientes</a>
+                </div>
+                <div className="mini-menu">
+                    <a href="#" onClick={() => setActiveComponent('repComponentes')}>Componentes</a>
+                </div>
+                <div className="mini-menu">
+                    <a href="#" onClick={() => setActiveComponent('repUsuarios')}>Usuarios</a>
+                </div>
+                <div className="mini-menu">
+                    <a href="#" onClick={() => setActiveComponent('repVenCompo')}>Ventas por Cliente</a>
+                </div>
+                <div className="mini-menu">
+                    <a href="#" onClick={() => setActiveComponent('repVenCli')}>Ventas por Componente</a>
+                </div>
+                <div className="mini-menu">
+                    <a href="#" onClick={() => setActiveComponent('repVenUsu')}>Ventas por Usuario</a>
+                </div>
             </div>
 
             <section className="main">

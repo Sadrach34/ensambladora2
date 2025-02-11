@@ -16,9 +16,15 @@ export const Preferencias = () => {
     return (
         <>
             <div className="menu">
-                <a href="#">Cambiar contraseña</a>
-                <a href="#">Cambiar idioma</a>
-                <a href="#">Acerca de ...</a>
+                <div className="mini-menu">
+                    <a href="#">Cambiar contraseña</a>
+                </div>
+                <div className="mini-menu">
+                    <a href="#">Cambiar idioma</a>
+                </div>
+                <div className="mini-menu">
+                    <a href="#">Acerca de ...</a>
+                </div>
             </div>
 
             <section className="main">

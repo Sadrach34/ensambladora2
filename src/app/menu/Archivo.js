@@ -33,11 +33,19 @@ export const Archivo = () => {
     return (
         <>
             <div className="menu">
-                <a href="#" onClick={() => setActiveComponent('ventas')}>Ventas</a>
-                <a href="#" onClick={() => setActiveComponent('clientes')}>Clientes</a>
-                <a href="#" onClick={() => setActiveComponent('componentes')}>Componentes</a>
+                <div className="mini-menu">
+                    <a href="#" onClick={() => setActiveComponent('ventas')}>Ventas</a>
+                </div>
+                <div className="mini-menu">
+                    <a href="#" onClick={() => setActiveComponent('clientes')}>Clientes</a>
+                </div>
+                <div className="mini-menu">
+                    <a href="#" onClick={() => setActiveComponent('componentes')}>Componentes</a>
+                </div>
+                <div className="mini-menu">
                 <a href="#" onClick={() => setActiveComponent('usuarios')}>Usuarios</a>
-                <a href="#">Salir</a>
+                </div>
+                <a href="#" className="salir">Salir</a>
             </div>
             {/* <Image src={Logo} alt="Descripción de la imagen" className='img'/> */}
             <section className="main">

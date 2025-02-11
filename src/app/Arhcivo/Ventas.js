@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 async function getVentas() {
-    const res = await fetch('http://localhost:3000/api/note');
+    const res = await fetch('http://localhost:3000/api/note/ventas');
     const data = await res.json();
     return data;
 }
@@ -28,7 +28,7 @@ export function Ventas() {
                     <thead>
                         <tr>
                             <th>id_ventas</th>
-                            <th>id_Cliente</th>
+                            <th>id_cliente</th>
                             <th>id_componente</th>
                             <th>Monto</th>
                             <th>FechaHora</th>
@@ -51,7 +51,7 @@ export function Ventas() {
                     <label className="label">id_ventas</label>
                     <input className="inpt-tabla"></input>
 
-                    <label className="label">id_Cliente</label>
+                    <label className="label">id_cliente</label>
                     <input className="inpt-tabla"></input>
 
                     <label className="label">id_componente</label>

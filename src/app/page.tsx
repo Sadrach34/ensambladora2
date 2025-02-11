@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState } from 'react';
-import {Archivo} from './menu/Archivo.js';
+import { Archivo } from './menu/Archivo.js';
 import { PantallaPrincipal } from "./PantallaPrincipal";
 import { Reportes } from './menu/Reportes';
 import { Preferencias } from './menu/Preferencias';
+import Image from 'next/image';
 
 export default function Home() {
   const [activeComponent, setActiveComponent] = useState('');
@@ -28,9 +29,9 @@ export default function Home() {
   return (
     <>
       <div className="Titulo">
-        <h1><a onClick={() => setActiveComponent('index')}>Ensambladora</a></h1>
-
-        <nav className="menu">
+          <div className="nombre">
+            <h1><a onClick={() => setActiveComponent('index')}>Ensambladora</a></h1>
+          </div>
           <div className="dropdown">
             <a href="#" onClick={() => setActiveComponent('archivo')}>Archivo</a>
           </div>
@@ -40,9 +41,9 @@ export default function Home() {
           </div>
 
           <div className="dropdown">
-            <a href="#" onClick={() => setActiveComponent('preferencias')}>Preferencias</a>
+            <a href="#" onClick={() => setActiveComponent('preferencias')}><Image src="/login.png" alt="Descripción de la imagen" className="img" width={50} height={30} /></a>
           </div>
-        </nav>
+        
       </div>
 
       <section className="main">

@@ -100,13 +100,6 @@ h2,h3{
   margin: 1.5rem 0;
 }
 
-.menu {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2.5rem 0 2.5rem;
-  font-size: 2rem;
-}
 
 /* VENTAS */
 .buscar{
@@ -155,14 +148,68 @@ td {
   grid-row: 2/3;
 }
 
-.dropdown{
-  display: flex;
+.dropdown a{
+  display: block;
   align-items: center;
   gap: 1rem;
   margin: 0 1.2rem;
+  padding: .5rem;
+  font-size: 4rem;
 }
 
 
 .dropdown :focus{
   background-color: #b1b1b1;
+}
+
+.dropdown :hover{
+  background-color: #b1b1b1;
+}
+
+
+.Titulo{
+  padding: 2rem .5rem;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2rem;
+}
+.menu{
+  display: flex;
+  gap: 1rem;
+  font-size: 2rem;
+  padding: 0 .5rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mini-menu{
+  display: flex;
+  gap: 1rem;
+  font-size: 2rem;
+  padding: 0 .5rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mini-menu a{
+  padding: .5rem;
+  font-size: 2rem;
+}
+
+.mini-menu a:hover{
+  background-color: #b1b1b1;
+}
+
+.mini-menu a:focus{
+  background-color: #b1b1b1;
+}
+
+.nombre{
+  display: flex;
+  font-size: 2.5rem;
+  padding: 0 .5rem;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
 }

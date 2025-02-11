@@ -20,3 +20,24 @@ model Ventas {
   Monto       Decimal?
   FechaHora   DateTime? @default(now())
 }
+model Clientes {
+  Id_cliente  BigInt @id @default(autoincrement())
+  cliente     String?
+  Celular     String?
+  Domicilio   String?
+}
+model Componentes {
+  id_componen  BigInt @id @default(autoincrement())
+  componente   String?
+  precio       Int?
+  Disponible   Int?
+}
+model Usuarios {
+  Id_usuario  BigInt @id @default(autoincrement())
+  Usuario     String?
+  Cuenta      String?
+  Clave       String?
+  nivel       Int?
+  Idioma      Int?
+}
+
