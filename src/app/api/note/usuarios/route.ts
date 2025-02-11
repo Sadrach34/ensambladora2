@@ -3,16 +3,16 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET() {
     try {
-        const Componentes = await prisma.componentes.findMany();
-        console.log(Componentes);
+        const usuarios = await prisma.usuarios.findMany();
+        console.log(usuarios);
 
         // Convertir BigInt a string
-        const ComponentesSerialized = Componentes.map(componente => ({
+        const usuariosSerialized = usuarios.map(componente => ({
             ...componente,
-            id_componen: componente.id_componen.toString(),
+            Id_usuario: componente.Id_usuario.toString(),
             // Añadir aquí otros campos de tipo BigInt si los hay
         }));
-        return NextResponse.json(ComponentesSerialized);
+        return NextResponse.json(usuariosSerialized);
 
     } catch (error) {
         if (error instanceof Error) {
@@ -27,25 +27,27 @@ export async function GET() {
 
 export async function POST(request: Request) {
     try {
-        const { id_componen, componente, precio, Disponible } = await request.json();
+        const { Id_usuario, Usuario, Cuenta, Clave, nivel, Idioma } = await request.json();
 
-        const newcomponente = await prisma.componentes.create({
+        const newcomponente = await prisma.usuarios.create({
             data: {
-                id_componen,
-                componente,
-                precio,
-                Disponible,
+                Id_usuario,
+                Usuario,
+                Cuenta,
+                Clave,
+                nivel,
+                Idioma,
             }
         });
 
         // Convertir BigInt a string
-        const newComponenteserialized = {
+        const newusuarioserialized = {
             ...newcomponente,
-            id_componen: newcomponente.id_componen.toString(),
+            Id_usuario: newcomponente.Id_usuario.toString(),
             // Añadir aquí otros campos de tipo BigInt si los hay
         };
 
-        return NextResponse.json(newComponenteserialized);
+        return NextResponse.json(newusuarioserialized);
     } catch (error) {
         if (error instanceof Error) {
             return NextResponse.json({

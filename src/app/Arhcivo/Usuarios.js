@@ -1,6 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+async function getUsuarios() {
+    const res = await fetch('http://localhost:3000/api/note/usuarios');
+    const data = await res.json();
+    return data;
+}
 
 export const Usuarios = () => {
+    const [usuarios, setusuarios] = useState([]);
+    
+        useEffect(() => {
+            async function fetchData() {
+                const data = await getUsuarios();
+                setusuarios(data);
+            }
+            fetchData();
+        }, []);
     return (
         <>
             <div className="Archivo">
@@ -20,30 +35,17 @@ export const Usuarios = () => {
                         </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                            <td>1</td>
-                            <td>Juan Pérez</td>
-                            <td>jperez</td>
-                            <td>********</td>
-                            <td>Administrador</td>
-                            <td>Español</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>María López</td>
-                            <td>mlopez</td>
-                            <td>********</td>
-                            <td>Usuario</td>
-                            <td>Inglés</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Carlos García</td>
-                            <td>cgarcia</td>
-                            <td>********</td>
-                            <td>Moderador</td>
-                            <td>Francés</td>
-                        </tr>
+                        {usuarios.map((usuario) => (
+                            <tr key={usuario.id_usuario}>
+                                <td>{usuario.Id_usuario}</td>
+                                <td>{usuario.Usuario}</td>
+                                <td>{usuario.Cuenta}</td>
+                                <td>{usuario.Clave}</td>
+                                <td>{usuario.nivel}</td>
+                                <td>{usuario.Idioma}</td>
+                                <td>{usuario.activo}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
                 

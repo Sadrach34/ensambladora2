@@ -32,6 +32,7 @@ export function Ventas() {
                             <th>id_componente</th>
                             <th>Monto</th>
                             <th>FechaHora</th>
+                            <th>cancelado</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,6 +43,7 @@ export function Ventas() {
                                 <td>{venta.id_componen}</td>
                                 <td>{venta.Monto}</td>
                                 <td>{venta.FechaHora}</td>
+                                <td>{venta.cancelado}</td>
                             </tr>
                         ))}
                     </tbody>

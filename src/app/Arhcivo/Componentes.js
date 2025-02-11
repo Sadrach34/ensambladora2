@@ -1,6 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+async function getComponente() {
+    const res = await fetch('http://localhost:3000/api/note/componentes');
+    const data = await res.json();
+    return data;
+}
 
 export const Componentes = () => {
+    const [componente, setComponente] = useState([]);
+    
+    useEffect(() => {
+        async function fetchData() {
+            const data = await getComponente();
+            setComponente(data);
+        }
+        fetchData();
+    }, []);
+    
     return (
         <>
             <div className="Archivo">
@@ -18,24 +34,15 @@ export const Componentes = () => {
                         </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                            <td>1</td>
-                            <td>Procesador Intel Core i7</td>
-                            <td>$300</td>
-                            <td>Sí</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Memoria RAM 16GB DDR4</td>
-                            <td>$150</td>
-                            <td>Sí</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Disco Duro SSD 1TB</td>
-                            <td>$120</td>
-                            <td>No</td>
-                        </tr>
+                        {componente.map((componente) => (
+                            <tr key={componente.id_componen}>
+                                <td>{componente.id_componen}</td>
+                                <td>{componente.componente}</td>
+                                <td>{componente.precio}</td>
+                                <td>{componente.Disponible}</td>
+                                <td>{componente.baja}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
                 

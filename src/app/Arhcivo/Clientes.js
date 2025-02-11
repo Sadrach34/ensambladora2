@@ -39,6 +39,7 @@ export const Clientes = () => {
                                 <td>{cliente.cliente}</td>
                                 <td>{cliente.Celular}</td>
                                 <td>{cliente.Domicilio}</td>
+                                <td>{cliente.suspendido}</td>
                             </tr>
                         ))}
                     </tbody>

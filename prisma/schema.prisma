@@ -19,18 +19,21 @@ model Ventas {
   id_componen BigInt?
   Monto       Decimal?
   FechaHora   DateTime? @default(now())
+  cancelado   String?
 }
 model Clientes {
   Id_cliente  BigInt @id @default(autoincrement())
   cliente     String?
   Celular     String?
   Domicilio   String?
+  suspendido  String?
 }
 model Componentes {
   id_componen  BigInt @id @default(autoincrement())
   componente   String?
   precio       Int?
   Disponible   Int?
+  baja         String?
 }
 model Usuarios {
   Id_usuario  BigInt @id @default(autoincrement())
@@ -39,5 +42,5 @@ model Usuarios {
   Clave       String?
   nivel       Int?
   Idioma      Int?
+  activo      String? 
 }
-
