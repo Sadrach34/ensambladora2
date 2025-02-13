@@ -3,8 +3,10 @@
 @tailwind utilities; */
 
 html{
+  background-color: RGB(1,22,39,255);
   box-sizing: border-box;
   font-size: 62.5%;
+  color: #FFFF;
 }
 *,*::before,*::after{
   box-sizing: inherit;
@@ -42,7 +44,6 @@ h2,h3{
 
 .btn{
   background-color: #dcdcdc;
-  display: block;
   color: black;
   margin: 1rem;
   padding: .4rem 8.9rem;
@@ -50,12 +51,13 @@ h2,h3{
 }
 
 .btn2{
-  padding: .2rem 4rem;
+  text-align: center;
+  padding: .4rem 1rem;
   margin: 1rem;
 }
 
 .btn:hover{
-  background-color: #b1b1b1;
+  color: #24beb7;
 }
 
 .Archivo{
@@ -84,7 +86,7 @@ h2,h3{
   display: grid;
   border-radius: .5rem;
   grid-template-columns: repeat(2,1fr);
-  background-color: #e1e1e1;
+  background-color: #24beb7;
 }
 
 .Titulo nav{
@@ -110,7 +112,7 @@ h2,h3{
 .table {
   width: 100%;
   padding: 0 .8rem;
-  
+  color: #000;
 }
 
 .busqueda{
@@ -118,8 +120,8 @@ h2,h3{
 }
 
 .btn-group{
-  display: flex;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
 }
 
 th{
@@ -146,6 +148,7 @@ td {
 
 .inpt-tabla{
   grid-row: 2/3;
+  color: #000;
 }
 
 .dropdown a{
@@ -159,11 +162,12 @@ td {
 
 
 .dropdown :focus{
-  background-color: #b1b1b1;
+  color: #FFFF;
 }
 
 .dropdown :hover{
-  background-color: #b1b1b1;
+  color: #FFFF;
+
 }
 
 
@@ -174,6 +178,7 @@ td {
   align-items: center;
   font-size: 2rem;
 }
+
 .menu{
   display: flex;
   gap: 1rem;
@@ -195,14 +200,15 @@ td {
 .mini-menu a{
   padding: .5rem;
   font-size: 2rem;
+  color: #e1e1e1;
 }
 
 .mini-menu a:hover{
-  background-color: #b1b1b1;
+  color: #24beb7
 }
 
 .mini-menu a:focus{
-  background-color: #b1b1b1;
+  color: #24beb7;
 }
 
 .nombre{
@@ -212,4 +218,7 @@ td {
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+}
+.label{
+  color: #000;
 }

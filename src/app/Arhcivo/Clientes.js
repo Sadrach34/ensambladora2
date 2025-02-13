@@ -27,43 +27,34 @@ export const Clientes = () => {
                     <thead>
                         <tr>
                             <th>id_Cliente</th>
-                            <th>Celular</th>
                             <th>Cliente</th>
+                            <th>Celular</th>
                             <th>Domicilo</th>
+                            <th>suspendido</th>
+                            <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {clientes.map((cliente) => (
+                        {clientes.map((cliente) => (
                             <tr key={cliente.Id_cliente}>
                                 <td>{cliente.Id_cliente}</td>
                                 <td>{cliente.cliente}</td>
                                 <td>{cliente.Celular}</td>
                                 <td>{cliente.Domicilio}</td>
                                 <td>{cliente.suspendido}</td>
+                                <td>
+                                    <span className="btn-group">
+                                        <a className="btn btn2">Eliminar</a>
+                                        <a className="btn btn2">Modificar</a>
+                                    </span>
+                                    </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
-                
-                <div className="form">
-                    <label className="label">id_Cliente</label>
-                        <input className="inpt-tabla"></input>
-
-                    <label className="label">Celular</label>
-                        <input className="inpt-tabla"></input>
-
-                    <label className="label">Cliente</label>
-                        <input className="inpt-tabla inpt-grande2"></input>
-
-                    <label className="label">Domicilo</label>
-                        <input className="inpt-tabla"></input>
-                </div>
 
                 <div className="btn-group">
                     <a className="btn btn2">Agregar</a>
-                    <a className="btn btn2">Eliminar</a>
-                    <a className="btn btn2">Modificar</a>
-                    <a className="btn btn2">Salir</a>
                 </div>
             </div>
         </>

@@ -12,6 +12,7 @@ export async function GET() {
             id_ventas: venta.id_ventas.toString(),
             id_cliente: venta.id_cliente ? venta.id_cliente.toString() : 'N/A',
             id_componen: venta.id_componen ? venta.id_componen.toString() : 'N/A',
+            Id_usuario: venta.Id_usuario ? venta.Id_usuario.toString() : 'N/A',
             FechaHora: venta.FechaHora ? venta.FechaHora.toISOString() : 'N/A',
             cancelado: venta.cancelado || 'N/A',
         }));
@@ -30,12 +31,13 @@ export async function GET() {
 
 export async function POST(request: Request) {
     try {
-        const { id_cliente, id_componen, Monto, cancelado } = await request.json();
+        const { id_cliente, id_componen, Id_usuario, Monto, cancelado } = await request.json();
 
         const newVenta = await prisma.ventas.create({
             data: {
                 id_cliente,
                 id_componen,
+                Id_usuario,
                 Monto,
                 FechaHora: new Date(),
                 cancelado,
@@ -48,6 +50,7 @@ export async function POST(request: Request) {
             id_ventas: newVenta.id_ventas.toString(),
             id_cliente: newVenta.id_cliente ? newVenta.id_cliente.toString() : 'N/A',
             id_componen: newVenta.id_componen ? newVenta.id_componen.toString() : 'N/A',
+            Id_usuario: newVenta.Id_usuario ? newVenta.Id_usuario.toString() : 'N/A',
             FechaHora: newVenta.FechaHora ? newVenta.FechaHora.toISOString() : 'N/A',
             cancelado: newVenta.cancelado || 'N/A',
         };

@@ -5,9 +5,11 @@ import { Archivo } from './menu/Archivo.js';
 import { PantallaPrincipal } from "./PantallaPrincipal";
 import { Reportes } from './menu/Reportes';
 import { Preferencias } from './menu/Preferencias';
+
 import Image from 'next/image';
 
 export default function Home() {
+  const [isActive, setIsActive] = useState(false); // Estado inicial definido correctamente
   const [activeComponent, setActiveComponent] = useState('');
 
   const renderComponent = () => {
@@ -28,8 +30,8 @@ export default function Home() {
 
   return (
     <>
-      <div className="Titulo">
-          <div className="nombre">
+      <div className='Titulo'> 
+          <div onClick={()=> setIsActive(!isActive)} className={`nombre ${isActive ? "text-red-500" : "text-blue-500"}`}> 
             <h1><a onClick={() => setActiveComponent('index')}>Ensambladora</a></h1>
           </div>
           <div className="dropdown">
@@ -41,9 +43,10 @@ export default function Home() {
           </div>
 
           <div className="dropdown">
-            <a href="#" onClick={() => setActiveComponent('preferencias')}><Image src="/login.png" alt="Descripción de la imagen" className="img" width={50} height={30} /></a>
+            <a href="#" onClick={() => setActiveComponent('preferencias')}>
+              <Image src="/login.png" alt="Descripción de la imagen" className="img" width={50} height={30} />
+            </a>
           </div>
-        
       </div>
 
       <section className="main">

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FormVenta } from '@/components/FormVenta';
 
 async function getVentas() {
     const res = await fetch('http://localhost:3000/api/note/ventas');
@@ -29,10 +30,12 @@ export function Ventas() {
                         <tr>
                             <th>id_ventas</th>
                             <th>id_cliente</th>
-                            <th>id_componente</th>
+                            <th>id_componen</th>
+                            <th>Id_usuario</th>
                             <th>Monto</th>
                             <th>FechaHora</th>
                             <th>cancelado</th>
+                            <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,36 +44,24 @@ export function Ventas() {
                                 <td>{venta.id_ventas}</td>
                                 <td>{venta.id_cliente}</td>
                                 <td>{venta.id_componen}</td>
+                                <td>{venta.Id_usuario}</td>
                                 <td>{venta.Monto}</td>
                                 <td>{venta.FechaHora}</td>
                                 <td>{venta.cancelado}</td>
+                                <td>
+                                    <span className="btn-group">
+                                        <a className="btn btn2">Eliminar</a>
+                                        <a className="btn btn2">Modificar</a>
+                                    </span>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
-                
-                <div className="form">
-                    <label className="label">id_ventas</label>
-                    <input className="inpt-tabla"></input>
-
-                    <label className="label">id_cliente</label>
-                    <input className="inpt-tabla"></input>
-
-                    <label className="label">id_componente</label>
-                    <input className="inpt-tabla"></input>
-
-                    <label className="label">Monto</label>
-                    <input className="inpt-tabla"></input>
-
-                    <label className="label">FechaHora</label>
-                    <input className="inpt-tabla inpt-grande"></input>
-                </div>
 
                 <div className="btn-group">
                     <a className="btn btn2">Agregar</a>
-                    <a className="btn btn2">Eliminar</a>
-                    <a className="btn btn2">Modificar</a>
-                    <a className="btn btn2">Salir</a>
+                    <FormVenta></FormVenta>
                 </div>
             </div>
         </>

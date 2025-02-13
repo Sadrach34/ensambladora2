@@ -17,6 +17,7 @@ model Ventas {
   id_ventas   BigInt @id @default(autoincrement())
   id_cliente  BigInt?
   id_componen BigInt?
+  Id_usuario  BigInt?
   Monto       Decimal?
   FechaHora   DateTime? @default(now())
   cancelado   String?

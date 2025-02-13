@@ -31,6 +31,8 @@ export const Componentes = () => {
                             <th>Componente</th>
                             <th>Precio</th>
                             <th>Disponible</th>
+                            <th>baja</th>
+                            <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,30 +43,19 @@ export const Componentes = () => {
                                 <td>{componente.precio}</td>
                                 <td>{componente.Disponible}</td>
                                 <td>{componente.baja}</td>
+                                <td>
+                                    <span className="btn-group">
+                                        <a className="btn btn2">Eliminar</a>
+                                        <a className="btn btn2">Modificar</a>
+                                    </span>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
-                
-                <div className="form">
-                    <label className="label">id_componen</label>
-                        <input className="inpt-tabla"></input>
-
-                    <label className="label">Componente</label>
-                        <input className="inpt-tabla inpt-grande2"></input>
-
-                    <label className="label">Precio</label>
-                        <input className="inpt-tabla "></input>
-
-                    <label className="label">Disponible</label>
-                        <input className="inpt-tabla"></input>
-                </div>
 
                 <div className="btn-group">
                     <a className="btn btn2">Agregar</a>
-                    <a className="btn btn2">Eliminar</a>
-                    <a className="btn btn2">Modificar</a>
-                    <a className="btn btn2">Salir</a>
                 </div>
             </div>
         </>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PantallaPrincipal } from "../PantallaPrincipal";
 import { RepVentas } from '../Reporte/RepVentas';
-import { Repclientes } from '../Reporte/RepClientes';
+import { RepClientes } from '../Reporte/RepClientes';
 import { RepComponentes } from '../Reporte/RepComponentes';
 import { RepUsuarios } from '../Reporte/RepUsuarios';
 import { RepVenCompo } from '../Reporte/RepVenCompo';
@@ -16,8 +16,8 @@ export const Reportes = () => {
         case 'repVentas':
             return <RepVentas />;
 
-        case 'repclientes':
-            return <Repclientes />;
+        case 'repClientes':
+            return <RepClientes />;
 
         case 'repComponentes':
             return <RepComponentes />;
@@ -56,10 +56,10 @@ export const Reportes = () => {
                     <a href="#" onClick={() => setActiveComponent('repUsuarios')}>Usuarios</a>
                 </div>
                 <div className="mini-menu">
-                    <a href="#" onClick={() => setActiveComponent('repVenCompo')}>Ventas por Cliente</a>
+                    <a href="#" onClick={() => setActiveComponent('repVenCli')}>Ventas por Cliente</a>
                 </div>
                 <div className="mini-menu">
-                    <a href="#" onClick={() => setActiveComponent('repVenCli')}>Ventas por Componente</a>
+                    <a href="#" onClick={() => setActiveComponent('repVenCompo')}>Ventas por Componente</a>
                 </div>
                 <div className="mini-menu">
                     <a href="#" onClick={() => setActiveComponent('repVenUsu')}>Ventas por Usuario</a>

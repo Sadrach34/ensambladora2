@@ -7,15 +7,16 @@ async function getUsuarios() {
 }
 
 export const Usuarios = () => {
-    const [usuarios, setusuarios] = useState([]);
+    const [usuarios, setUsuarios] = useState([]);
     
-        useEffect(() => {
-            async function fetchData() {
-                const data = await getUsuarios();
-                setusuarios(data);
-            }
-            fetchData();
-        }, []);
+    useEffect(() => {
+        async function fetchData() {
+            const data = await getUsuarios();
+            setUsuarios(data);
+        }
+        fetchData();
+    }, []);
+
     return (
         <>
             <div className="Archivo">
@@ -32,11 +33,13 @@ export const Usuarios = () => {
                             <th>Clave</th>
                             <th>Nivel</th>
                             <th>Idioma</th>
+                            <th>activo</th>
+                            <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {usuarios.map((usuario) => (
-                            <tr key={usuario.id_usuario}>
+                            <tr key={usuario.Id_usuario}>
                                 <td>{usuario.Id_usuario}</td>
                                 <td>{usuario.Usuario}</td>
                                 <td>{usuario.Cuenta}</td>
@@ -44,31 +47,19 @@ export const Usuarios = () => {
                                 <td>{usuario.nivel}</td>
                                 <td>{usuario.Idioma}</td>
                                 <td>{usuario.activo}</td>
+                                <td>
+                                    <span className="btn-group">
+                                        <a className="btn btn2">Eliminar</a>
+                                        <a className="btn btn2">Modificar</a>
+                                    </span>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
-                
-                <div className="form">
-                    <label className="label">id_usuario</label>
-                        <input className="inpt-tabla"></input>
-                    <label className="label">Usuario</label>
-                        <input className="inpt-tabla"></input>
-                    <label className="label">Cuenta</label>
-                        <input className="inpt-tabla "></input>
-                    <label className="label">Clave</label>
-                        <button className="inpt-tabla inpt-grande3">reiniciar contraseña</button>
-                    <label className="label">Nivel</label>
-                        <input className="inpt-tabla "></input>
-                    <label className="label">Idioma</label>
-                        <input className="inpt-tabla "></input>
-                </div>
 
                 <div className="btn-group">
                     <a className="btn btn2">Agregar</a>
-                    <a className="btn btn2">Eliminar</a>
-                    <a className="btn btn2">Modificar</a>
-                    <a className="btn btn2">Salir</a>
                 </div>
             </div>
         </>
