@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 export async function GET() {
     try {
         const ventas = await prisma.ventas.findMany();
-        console.log(ventas);
+        // console.log(ventas);
 
         // Convertir BigInt a string
         const ventasSerialized = ventas.map(venta => ({
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
             id_componen: newVenta.id_componen ? newVenta.id_componen.toString() : 'N/A',
             Id_usuario: newVenta.Id_usuario ? newVenta.Id_usuario.toString() : 'N/A',
             FechaHora: newVenta.FechaHora ? newVenta.FechaHora.toISOString() : 'N/A',
-            cancelado: newVenta.cancelado || 'N/A',
+            cancelado: newVenta.cancelado || 'N/A', 
         };
 
         return NextResponse.json(newVentaSerialized);

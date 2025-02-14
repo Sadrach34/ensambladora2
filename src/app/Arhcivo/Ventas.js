@@ -25,6 +25,9 @@ export function Ventas() {
                     <input className="buscar"></input>
                     <a className="btn">Buscar</a>
                 </div>
+                <div className="FormVenta">
+                    <FormVenta />
+                </div>
                 <table className="table">
                     <thead>
                         <tr>
@@ -58,11 +61,6 @@ export function Ventas() {
                         ))}
                     </tbody>
                 </table>
-
-                <div className="btn-group">
-                    <a className="btn btn2">Agregar</a>
-                    <FormVenta></FormVenta>
-                </div>
             </div>
         </>
     );

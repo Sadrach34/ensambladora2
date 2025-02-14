@@ -9,7 +9,7 @@ import { Preferencias } from './menu/Preferencias';
 import Image from 'next/image';
 
 export default function Home() {
-  const [isActive, setIsActive] = useState(false); // Estado inicial definido correctamente
+  const [isActive, setIsActive] = useState(false); 
   const [activeComponent, setActiveComponent] = useState('');
 
   const renderComponent = () => {
