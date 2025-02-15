@@ -2,13 +2,29 @@ import React, { useEffect, useState } from 'react';
 import { FormVenta } from '@/components/FormVenta';
 
 async function getVentas() {
-    const res = await fetch('http://localhost:3000/api/note/ventas');
+    const res = await fetch('http://localhost:3000/api/note?table=ventas');
     const data = await res.json();
     return data;
 }
 
+async function deleteVenta(id) {
+    const res = await fetch(`http://localhost:3000/api/note/${id}?table=ventas`, {
+        method: 'DELETE',
+    });
+    return res.json();
+}
+
+async function getVenta(id) {
+    const res = await fetch(`http://localhost:3000/api/note/${id}?table=ventas`, {
+        method: 'GET',
+    });
+    return res.json();
+}
+
 export function Ventas() {
     const [ventas, setVentas] = useState([]);
+    const [searchId, setSearchId] = useState('');
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
@@ -18,16 +34,42 @@ export function Ventas() {
         fetchData();
     }, []);
 
+    const handleDelete = async (id) => {
+        await deleteVenta(id);
+        setVentas((prevVentas) => prevVentas.filter((venta) => venta.id_ventas !== id));
+    };
+
+    const handleGet = async () => {
+        try {
+            const data = await getVenta(searchId);
+            if (data.record) {
+                setVentas([data.record]);
+                setError(null);
+            } else {
+                setError('Venta no encontrada');
+                setVentas([]);
+                alert('Venta no encontrada');
+            }
+        } catch (err) {
+            setError('Error al buscar la venta');
+            setVentas([]);
+            alert('Error al buscar la venta'+err+{error});
+        }
+    };
+
     return (
         <>
             <div className="Archivo">
                 <div className="busqueda">
-                    <input className="buscar"></input>
-                    <a className="btn">Buscar</a>
+                    <input
+                        className="buscar"
+                        placeholder='Buscar...'
+                        value={searchId}
+                        onChange={(e) => setSearchId(e.target.value)}
+                    />
+                    <a className="btn" onClick={handleGet}>Buscar</a>
                 </div>
-                <div className="FormVenta">
-                    <FormVenta />
-                </div>
+                <FormVenta />
                 <table className="table">
                     <thead>
                         <tr>
@@ -53,7 +95,7 @@ export function Ventas() {
                                 <td>{venta.cancelado}</td>
                                 <td>
                                     <span className="btn-group">
-                                        <a className="btn btn2">Eliminar</a>
+                                        <a className="btn btn2" onClick={() => handleDelete(venta.id_ventas)}>Eliminar</a>
                                         <a className="btn btn2">Modificar</a>
                                     </span>
                                 </td>

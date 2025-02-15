@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-
-import { Ventas } from "../Arhcivo/Ventas";
-import { Clientes } from "../Arhcivo/Clientes";
-import { Componentes } from "../Arhcivo/Componentes";
-import { Usuarios } from "../Arhcivo/Usuarios";
+import { Ventas } from "../Archivo/Ventas";
+import { Clientes } from "../Archivo/Clientes";
+import { Componentes } from "../Archivo/Componentes";
+import { Usuarios } from "../Archivo/Usuarios";
 
 export const Archivo = () => {
     const [activeComponent, setActiveComponent] = useState(null);
@@ -12,22 +11,15 @@ export const Archivo = () => {
     switch (activeComponent) {
         case 'ventas':
             return <Ventas />;
+
         case 'clientes':
             return <Clientes />;
+
         case 'componentes':
             return <Componentes />;
 
         case 'usuarios':
             return <Usuarios />;
-
-        case 'ventas':
-            return <Ventas />;
-
-        case 'ventas':
-            return <Ventas />;
-
-        case 'ventas':
-            return <Ventas />;
     }
     };
     return (

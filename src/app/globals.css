@@ -227,7 +227,7 @@ td {
 .FormVenta{
   display: grid;
   grid-template-columns: repeat(7,1fr);
-  margin: 0 1rem;
+  margin: .2rem 1rem .2rem .9rem;
   gap: .5rem;
   padding: auto;
 }
@@ -236,4 +236,53 @@ td {
   grid-column: 7/8;
   padding: .5rem 1rem;
   font-size: 1.5rem;
+}
+.FormVenta input{
+  padding: .5rem 0 .5rem .5rem; 
+}
+
+.FormCliente{
+  display: grid;
+  grid-template-columns: repeat(6,1fr);
+  margin: 0 1rem;
+  gap: .5rem;
+  padding: auto;
+}
+
+.FormCliente button{
+  grid-column: 6/7;
+  padding: .5rem 1rem;
+  font-size: 1.5rem;
+}
+
+.FormCliente{
+  display: grid;
+  grid-template-columns: repeat(6,1fr);
+  margin: 0 1rem;
+  gap: .5rem;
+  padding: auto;
+}
+
+.FormCliente button{
+  grid-column: 6/7;
+  padding: .5rem 1rem;
+  font-size: 1.5rem;
+}
+
+.FormUsuarios{
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+  margin: 0 1rem;
+  gap: .5rem;
+  padding: auto;
+}
+
+.FormUsuarios button{
+  grid-column: 7/8;
+  padding: .5rem 1rem;
+  font-size: 1.5rem;
+}
+
+.FormUsuarios input{
+  padding: .5rem 0 .5rem .5rem; 
 }

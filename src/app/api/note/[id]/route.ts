@@ -1,122 +1,145 @@
 import { NextResponse } from "next/server";
-
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
+import { table } from "console";
 
-interface Params {params: {id: string}}
+interface Params { params: { id: string } }
 
-export async function GET(request: Request, {params}: Params) { 
-    // GET /api/note/[id]
-    try{
-        const venta = await prisma.ventas.findFirst({
-            where: {
-                id_ventas: Number(params.id),
-            },
-        });
+const getModel = (table: string) => {
+    switch (table) {
+        case 'ventas':
+            return prisma.ventas;
+        case 'clientes':
+            return prisma.clientes;
+        case 'componentes':
+            return prisma.componentes;
+        case 'usuarios':
+            return prisma.usuarios;
+        default:
+            throw new Error('Invalid table name');
+    }
+};
 
-        if (!venta) {
-            return NextResponse.json({
-                message: "Venta not found",
-            }, {
-                status: 404,
-            });
-        }
+const getIdField = (table: string) => {
+    switch (table) {
+        case 'ventas':
+            return 'id_ventas';
+        case 'clientes':
+            return 'Id_cliente';
+        case 'componentes':
+            return 'id_componen';
+        case 'usuarios':
+            return 'Id_usuario';
+        default:
+            throw new Error('Invalid table name');
+    }
+};
 
-        // Convertir BigInt a string
-        const ventaSerialized = {
-            ...venta,
-            id_ventas: venta.id_ventas.toString(),
-            id_cliente: venta.id_cliente ? venta.id_cliente.toString() : 'N/A',
-            id_componen: venta.id_componen ? venta.id_componen.toString() : 'N/A',
-            FechaHora: venta.FechaHora ? venta.FechaHora.toISOString() : 'N/A',
-        };
-
-        return NextResponse.json({ventaSerialized});
-    }catch(error){
-        if (error instanceof Error) {
-            return NextResponse.json({
-                message: error.message
-            }, {
-                status: 500,
-            });
+const convertBigIntToString = (obj: any) => {
+    for (const key in obj) {
+        if (typeof obj[key] === 'bigint') {
+            obj[key] = obj[key].toString();
         }
     }
-}
+    return obj;
+};
 
-export async function DELETE(request: Request, {params}: Params) {
-    // DELETE /api/note/[id]
-    try{
-        const deleteVenta = await prisma.ventas.delete({
+export async function GET(request: Request, context: Params) {
+    try {
+        const url = new URL(request.url);
+        const table = url.searchParams.get('table');
+        if (!table) {
+            throw new Error('Table parameter is missing');
+        }
+
+        const model = getModel(table);
+        const idField = getIdField(table);
+        const id = Number(context.params.id);
+
+        if (isNaN(id)) {
+            throw new Error('Invalid ID parameter');
+        }
+
+        console.log(`Getting from table: ${table}, idField: ${idField}, id: ${id}`);
+
+        const record = await model.findUnique({
             where: {
-                id_ventas: Number(params.id),
+                [idField]: id,
             },
         });
 
-        if (!deleteVenta) {
+        if (!record) {
+            console.log(`Record not found: ${id}`);
             return NextResponse.json({
-                message: "Venta not found",
+                message: `${table} not found`,
             }, {
                 status: 404,
             });
         }
 
-        // Convertir BigInt a string
-        const deleteVentaSerialized = {
-            ...deleteVenta,
-            id_ventas: deleteVenta.id_ventas.toString(),
-            id_cliente: deleteVenta.id_cliente ? deleteVenta.id_cliente.toString() : 'N/A',
-            id_componen: deleteVenta.id_componen ? deleteVenta.id_componen.toString() : 'N/A',
-            FechaHora: deleteVenta.FechaHora ? deleteVenta.FechaHora.toISOString() : 'N/A',
-        };
-
-        return NextResponse.json({deleteVentaSerialized});
-    }catch(error){
+        return NextResponse.json({ record: convertBigIntToString(record) });
+    } catch (error) {
+        console.error(error);
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
             if (error.code === 'P2025') {
                 return NextResponse.json({
-                    message: "Venta not found (p2025)",
+                    message: `${table} not found (p2025)`,
                 }, {
                     status: 404,
                 });
             }
-            return NextResponse.json({
-                message: error.message
-            }, {
-                status: 500,
-            });
         }
+        return NextResponse.json({
+            message: error.message
+        }, {
+            status: 500,
+        });
     }
 }
 
-export async function PUT(request: Request, {params}: Params) { 
-    // PUT /api/note/[id]
-    try{
-        const { id_cliente, id_componen, Monto } = await request.json();
-        
-        prisma.ventas.update({
+
+export async function DELETE(request: Request, context: Params) {
+    try {
+        const url = new URL(request.url);
+        const table = url.searchParams.get('table');
+        if (!table) {
+            throw new Error('Table parameter is missing');
+        }
+
+        const model = getModel(table);
+        const idField = getIdField(table);
+
+        // console.log(`Deleting from table: ${table}, idField: ${idField}, id: ${context.params.id}`);
+
+        // Verificar si el registro existe antes de eliminarlo
+        const existingRecord = await model.findUnique({
             where: {
-                id_ventas: Number(params.id),
-            },
-            data: {
-                id_cliente,
-                id_componen,
-                Monto
+                [idField]: Number(context.params.id),
             },
         });
 
-        // Convertir BigInt a string
-        const deleteVentaSerialized = {
-            id_cliente: id_cliente ? id_cliente.toString() : 'N/A',
-            id_componen: id_componen ? id_componen.toString() : 'N/A',
-            Monto: Monto.toString(),
-        };
+        if (!existingRecord) {
+            console.log(`Record not found: ${context.params.id}`);
+            return NextResponse.json({
+                message: `${table} not found`,
+            }, {
+                status: 404,
+            });
+        }
 
-        return NextResponse.json({deleteVentaSerialized});
-    }catch(error){
+        const deleteRecord = await model.delete({
+            where: {
+                [idField]: Number(context.params.id),
+            },
+        });
+
+        return NextResponse.json({ deleteRecord: convertBigIntToString(deleteRecord) });
+    } catch (error) {
+        console.error(error);
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
             if (error.code === 'P2025') {
                 return NextResponse.json({
-                    message: "Venta not found (p2025)",
+                    message: `${table} not found (p2025)`,
                 }, {
                     status: 404,
                 });

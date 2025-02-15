@@ -36,28 +36,26 @@ export function FormVenta() {
     return (
         <form onSubmit={async (e) => {
             e.preventDefault();
-            console.log(cancelado, typeof cancelado);
             if (!validateInputs()) {
                 return;
             }
-            const res = await fetch('./api/note/ventas', {
+            const res = await fetch('/api/note?table=ventas', { // Corregir la URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    id_venta: Number(id_venta),
                     id_cliente: Number(id_cliente),
                     id_componen: Number(id_componen),
                     Id_usuario: Number(id_usuario),
                     Monto: parseFloat(monto),
                     FechaHora: fechaHora,
-                    cancelado: cancelado,
+                    cancelado: cancelado, // Asegúrate de que sea una cadena de texto
                 }),
-            })
-            const data = await res.json()
+            });
+            const data = await res.json();
             console.log(data);
-
+        
             router.refresh();
         }}>
             <div className="FormVenta">
@@ -65,26 +63,26 @@ export function FormVenta() {
                 type="text" name="title" 
                 autoFocus placeholder="id_venta" 
                 onChange={(e) => setId_venta(e.target.value)}/>
-
+        
                 <input 
                 type="text" name="title" 
                 placeholder="id_cliente" 
                 onChange={(e) => setId_cliente(e.target.value)}/>
-
+        
                 <input 
                 type="text" name="title" 
                 placeholder="id_componen" 
                 onChange={(e) => setId_componen(e.target.value)}/>
-
+        
                 <input type="text" name="title" placeholder="id_usuario" onChange={(e) => setId_usuario(e.target.value)}/>
-
+        
                 <input type="text" name="title" placeholder="Monto" onChange={(e) => setMonto(e.target.value)}/>
-
+        
                 <input type="text" name="title" placeholder="Fecha" onChange={(e) => setFechaHora(e.target.value)}/>
                 
                 <input type="text" name="title" placeholder="cancelado" onChange={(e) => setCancelado(e.target.value)}/>
                 
-                <button>crear</button>
+                <button>agregar</button>
             </div>
         </form>
     )

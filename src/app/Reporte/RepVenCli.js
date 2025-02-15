@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 async function getVentasClientes() {
     const res = await fetch('http://localhost:3000/api/note/repVenCli');
@@ -16,9 +18,25 @@ export const RepVenCli = () => {
         }
         fetchData();
     }, []);
+
+    const generatePDF = () => {
+        const doc = new jsPDF();
+        doc.text('Reporte de Ventas por Cliente', 14, 16);
+        doc.autoTable({
+            head: [['Cliente', 'id_ventas']],
+            body: ventasClientes.map(ventaCliente => [
+                ventaCliente.cliente,
+                ventaCliente.id_ventas
+            ]),
+            startY: 20,
+        });
+        doc.save('ReporteVentasClientes.pdf');
+    };
+
     return (
         <>
             <div className="Archivo">
+                <button onClick={generatePDF}>Generar PDF</button>
                 <table className="table">
                     <thead>
                         <tr>
