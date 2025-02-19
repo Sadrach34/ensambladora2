@@ -52,10 +52,6 @@ export function FormComponentes() {
             <div className="FormCliente">
                 <input 
                 type="text" name="title" 
-                autoFocus placeholder="Id_componen" />
-
-                <input 
-                type="text" name="title" 
                 autoFocus placeholder="Componente" 
                 onChange={(e) => setComponente(e.target.value)}/>
 

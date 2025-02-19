@@ -52,10 +52,6 @@
                 <div className="FormCliente">
                     <input 
                     type="text" name="title" 
-                    autoFocus placeholder="id_cliente" />
-
-                    <input 
-                    type="text" name="title" 
                     autoFocus placeholder="Cliente" 
                     onChange={(e) => setCliente(e.target.value)}/>
 
