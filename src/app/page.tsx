@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Archivo } from './menu/Archivo.js';
+import { Archivo } from './interfaces/menu/Archivo.js';
 import { PantallaPrincipal } from "./PantallaPrincipal";
-import { Reportes } from './menu/Reportes';
-import { Preferencias } from './menu/Preferencias';
+import { Reportes } from './interfaces/menu/Reportes';
+import { Preferencias } from './interfaces/menu/Preferencias';
 
 import Image from 'next/image';
 

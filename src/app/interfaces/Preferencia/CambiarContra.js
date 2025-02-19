@@ -1,5 +1,5 @@
 import React from 'react'
-import { PantallaPrincipal } from "../logo";
+import { PantallaPrincipal } from "../../PantallaPrincipal";
 
 export const CambiarContra = () => {
     return (

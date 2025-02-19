@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PantallaPrincipal } from "../PantallaPrincipal";
+// import { PantallaPrincipal } from "../PantallaPrincipal";
 import { RepVentas } from '../Reporte/RepVentas';
 import { RepClientes } from '../Reporte/RepClientes';
 import { RepComponentes } from '../Reporte/RepComponentes';
@@ -34,10 +34,6 @@ export const Reportes = () => {
         case 'repVenUsu':
             return <RepVenUsu />;
 
-
-
-        case 'index':
-            return <PantallaPrincipal />;
     }
     };
     return (
