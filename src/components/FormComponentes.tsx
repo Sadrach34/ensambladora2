@@ -73,7 +73,7 @@ export function FormComponentes() {
                 type="text" name="title" 
                 placeholder="Baja" 
                 onChange={(e) => setBaja(e.target.value)}/>
-                <button>crear</button>
+                <button>agregar</button>
             </div>
         </form>
     );

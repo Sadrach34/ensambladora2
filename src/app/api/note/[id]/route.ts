@@ -97,7 +97,6 @@ export async function GET(request: Request, context: Params) {
     }
 }
 
-
 export async function DELETE(request: Request, context: Params) {
     try {
         const url = new URL(request.url);
@@ -109,9 +108,6 @@ export async function DELETE(request: Request, context: Params) {
         const model = getModel(table);
         const idField = getIdField(table);
 
-        // console.log(`Deleting from table: ${table}, idField: ${idField}, id: ${context.params.id}`);
-
-        // Verificar si el registro existe antes de eliminarlo
         const existingRecord = await model.findUnique({
             where: {
                 [idField]: Number(context.params.id),

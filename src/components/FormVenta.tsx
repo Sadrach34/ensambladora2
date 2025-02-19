@@ -12,10 +12,10 @@ export function FormVenta() {
     const [cancelado, setCancelado] = useState('');
 
     const router = useRouter();
-
+    
     const validateInputs = () => {
-        if (!id_venta || !id_cliente || !id_componen || !id_usuario) {
-            alert("Los campos id_venta, id_cliente, id_componen y Id_usuario deben ser números.");
+        if (!id_venta || !id_cliente || !id_componen || !id_usuario || !monto || !fechaHora || !cancelado) {
+            alert("Los campos deben de estar llenos.");
             return false;
         }
         if (isNaN(Number(id_venta)) || isNaN(Number(id_cliente)) || isNaN(Number(id_componen)) || isNaN(Number(id_usuario))) {
@@ -39,7 +39,7 @@ export function FormVenta() {
             if (!validateInputs()) {
                 return;
             }
-            const res = await fetch('/api/note?table=ventas', { // Corregir la URL
+            const res = await fetch('/api/note?table=ventas', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,11 +50,12 @@ export function FormVenta() {
                     Id_usuario: Number(id_usuario),
                     Monto: parseFloat(monto),
                     FechaHora: fechaHora,
-                    cancelado: cancelado, // Asegúrate de que sea una cadena de texto
+                    cancelado: cancelado,
                 }),
             });
             const data = await res.json();
             console.log(data);
+            
         
             router.refresh();
         }}>

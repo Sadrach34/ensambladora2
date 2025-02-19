@@ -13,7 +13,7 @@ export function FormUsuario() {
     const router = useRouter();
 
     const validateInputs = () => {
-        if (!usuario || !cuenta || !clave || !nivel || !activo) {
+        if (!usuario || !cuenta || !clave || !nivel || !activo || !idioma) {
             alert("Debes de llenar todos los campos excepto Idioma.");
             return false;
         }
@@ -103,7 +103,7 @@ export function FormUsuario() {
                 type="text" name="title" 
                 placeholder="activo" 
                 onChange={(e) => setActivo(e.target.value)}/>
-                <button>crear</button>
+                <button>agregar</button>
             </div>
         </form>
     );

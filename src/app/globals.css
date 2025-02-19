@@ -3,10 +3,14 @@
 @tailwind utilities; */
 
 html{
-  background-color: RGB(1,22,39,255);
+  background: linear-gradient(to top, #011627 50%, rgb(1, 22, 39) 150%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
   box-sizing: border-box;
   font-size: 62.5%;
   color: #FFFF;
+  font-family:'Montserrat', sans-serif;
 }
 *,*::before,*::after{
   box-sizing: inherit;
@@ -41,7 +45,6 @@ h2,h3{
   height: auto;
 }
 
-
 .btn{
   background-color: #dcdcdc;
   color: black;
@@ -54,10 +57,19 @@ h2,h3{
   text-align: center;
   padding: .4rem 1rem;
   margin: 1rem;
+  background-color: #bebdbd;
+  cursor: pointer;
 }
 
 .btn:hover{
   color: #24beb7;
+  background-color: #bebdbd;
+  cursor: pointer;
+}
+
+.btn:active{
+  cursor: pointer;
+  font-size: 1.4rem;
 }
 
 .Archivo{
@@ -83,10 +95,12 @@ h2,h3{
 }
 
 .Titulo{
-  display: grid;
-  border-radius: .5rem;
-  grid-template-columns: repeat(2,1fr);
   background-color: #24beb7;
+  padding: 2rem .5rem;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2rem;
 }
 
 .Titulo nav{
@@ -101,7 +115,6 @@ h2,h3{
   padding: 0 2.5rem 0 0;
   margin: 1.5rem 0;
 }
-
 
 /* VENTAS */
 .buscar{
@@ -153,13 +166,11 @@ td {
 
 .dropdown a{
   display: block;
-  align-items: center;
   gap: 1rem;
   margin: 0 1.2rem;
   padding: .5rem;
   font-size: 4rem;
 }
-
 
 .dropdown :focus{
   color: #FFFF;
@@ -167,16 +178,6 @@ td {
 
 .dropdown :hover{
   color: #FFFF;
-
-}
-
-
-.Titulo{
-  padding: 2rem .5rem;
-  display:flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 2rem;
 }
 
 .menu{
@@ -229,7 +230,6 @@ td {
   grid-template-columns: repeat(7,1fr);
   margin: .2rem 1rem .2rem .9rem;
   gap: .5rem;
-  padding: auto;
 }
 
 .FormVenta button{
@@ -246,21 +246,6 @@ td {
   grid-template-columns: repeat(6,1fr);
   margin: 0 1rem;
   gap: .5rem;
-  padding: auto;
-}
-
-.FormCliente button{
-  grid-column: 6/7;
-  padding: .5rem 1rem;
-  font-size: 1.5rem;
-}
-
-.FormCliente{
-  display: grid;
-  grid-template-columns: repeat(6,1fr);
-  margin: 0 1rem;
-  gap: .5rem;
-  padding: auto;
 }
 
 .FormCliente button{
@@ -274,7 +259,6 @@ td {
   grid-template-columns: repeat(7,1fr);
   margin: 0 1rem;
   gap: .5rem;
-  padding: auto;
 }
 
 .FormUsuarios button{
@@ -285,4 +269,103 @@ td {
 
 .FormUsuarios input{
   padding: .5rem 0 .5rem .5rem; 
+}
+
+.image-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8rem 0 0 0;
+}
+
+.preferencias{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  background-color: #0084ff98;
+  width: 57rem;
+  border-radius: .5rem;
+  padding: 1rem;
+  border: solid 0.2rem #000;
+  text-align: center;
+}
+
+.preferencias input{
+  padding: .5rem 0 .5rem .5rem; 
+  border-radius: .5rem;
+  border: solid 0.1rem #000;
+  background-color: #e1e1e1;
+  width: 30rem;
+  margin: .8rem 0 .8rem 0;
+}
+
+.preferencias button{
+  padding: .5rem 0 .5rem .5rem; 
+  border-radius: .5rem;
+  border: solid 0.1rem #000;
+  background-color: #e1e1e1;
+  width: 12rem;
+  margin: 2rem .5rem 0rem 1rem;
+  font-size: 1.5rem;
+}
+
+.preferencias h3{
+  margin: 0 0 1rem 0;
+  font-size: 2.5rem;
+}
+
+.preferencias h1{
+  margin: 0 0 1rem 0;
+  font-size: 5rem;
+  background-color: #ffffffdc;
+  padding: .5rem .5rem;
+  border-radius: 2rem;
+  border: solid 0.1rem #000;
+  color: #000;
+}
+
+.preferencias button:hover{ 
+  background-color: #bebdbd;
+  cursor: pointer;
+}
+
+.preferencias button:active{
+  background-color: #bebdbd;
+  cursor: pointer;
+  font-size: 1.4rem;
+}
+
+.preferencias img{
+  border-radius: 2rem;
+  border: solid 0.1rem #000;
+  margin: 0 0 1rem 0;
+}
+
+.TituloAD{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0 1rem 0;
+  font-size: 2rem;
+}
+
+.infoAD{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  margin: 1rem 1rem;
+  gap: .5rem;
+  width: 55rem;
+}
+
+.p1{
+  font-size: 1.5rem;
+  margin: 0 0 1rem 0;
+  text-align: start;
+}
+
+.p2{
+  font-size: 1.5rem;
+  margin: 0 0 1rem 0;
+  text-align: end;
 }
