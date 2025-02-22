@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Archivo } from './interfaces/menu/Archivo.js';
-import { PantallaPrincipal } from "./PantallaPrincipal";
+import {PantallaPrincipal} from './PantallaPrincipal';
 import { Reportes } from './interfaces/menu/Reportes';
 import { Preferencias } from './interfaces/menu/Preferencias';
 

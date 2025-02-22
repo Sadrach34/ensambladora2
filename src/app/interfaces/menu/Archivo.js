@@ -3,6 +3,7 @@ import { Ventas } from "../Archivo/Ventas";
 import { Clientes } from "../Archivo/Clientes";
 import { Componentes } from "../Archivo/Componentes";
 import { Usuarios } from "../Archivo/Usuarios";
+import {signOut} from 'next-auth/react';
 
 export const Archivo = () => {
     const [activeComponent, setActiveComponent] = useState(null);
@@ -37,9 +38,10 @@ export const Archivo = () => {
                 <div className="mini-menu">
                 <a href="#" onClick={() => setActiveComponent('usuarios')}>Usuarios</a>
                 </div>
-                <a href="#" className="salir">Salir</a>
+                <div className="mini-menu">
+                    <a href="#" onClick={() => signOut()}>Salir</a>
+                </div>
             </div>
-            {/* <Image src={Logo} alt="Descripción de la imagen" className='img'/> */}
             <section className="main">
                 {renderComponent()}
             </section>

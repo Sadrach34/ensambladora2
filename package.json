@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@prisma/client": "^6.3.1",
+    "bcrypt": "^5.1.1",
     "crypto-js": "^4.2.0",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",
     "next": "15.1.6",
+    "next-auth": "^4.24.11",
     "prism": "^4.1.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

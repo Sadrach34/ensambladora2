@@ -38,7 +38,7 @@ model Componentes {
 }
 model Usuarios {
   Id_usuario  BigInt @id @default(autoincrement())
-  Usuario     String?
+  Usuario     String? @unique
   Cuenta      String?
   Clave       String?
   nivel       Int?
