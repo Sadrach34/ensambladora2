@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { FormVenta } from '@/components/FormVenta';
+import { useSession } from 'next-auth/react';
 
 async function getVentas() {
     const res = await fetch('http://localhost:3000/api/note?table=ventas');
@@ -21,10 +23,24 @@ async function getVenta(id) {
     return res.json();
 }
 
+async function updateVentaCancelado(id, cancelado) {
+    const res = await fetch('/api/note/upSuspendido', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id, table: 'ventas', field: 'cancelado', value: cancelado }),
+    });
+    return res.json();
+}
+
 export function Ventas() {
     const [ventas, setVentas] = useState([]);
     const [searchId, setSearchId] = useState('');
     const [error, setError] = useState(null);
+    const [filter, setFilter] = useState('Todos');
+    const router = useRouter();
+    const { data: session } = useSession();
 
     useEffect(() => {
         async function fetchData() {
@@ -51,11 +67,32 @@ export function Ventas() {
                 alert('Venta no encontrada');
             }
         } catch (err) {
-            setError('Error al buscar la venta');
+            setError('Error al buscar la venta' + error);
             setVentas([]);
-            alert('Error al buscar la venta'+err+{error});
+            alert('Error al buscar la venta: ' + err);
         }
     };
+
+    const handleEdit = (id) => {
+        router.push(`/interfaces/Archivo/EditVenta?id=${id}`);
+    };
+
+    const handleSuspend = async (id, currentStatus) => {
+        const newStatus = currentStatus === 'S' ? 'N' : 'S';
+        await updateVentaCancelado(id, newStatus);
+        setVentas((prevVentas) =>
+            prevVentas.map((venta) =>
+                venta.id_ventas === id ? { ...venta, cancelado: newStatus } : venta
+            )
+        );
+    };
+
+    const filteredVentas = ventas.filter((venta) => {
+        if (filter === 'Todos') return true;
+        if (filter === 'No suspendidos') return venta.cancelado === 'N';
+        if (filter === 'Suspendidos') return venta.cancelado !== 'N';
+        return true;
+    });
 
     return (
         <>
@@ -70,6 +107,11 @@ export function Ventas() {
                     <a className="btn" onClick={handleGet}>Buscar</a>
                 </div>
                 <FormVenta />
+                <select className="filtro" value={filter} onChange={(e) => setFilter(e.target.value)}>
+                    <option>Todos</option>
+                    <option>No suspendidos</option>
+                    <option>Suspendidos</option>
+                </select>
                 <table className="table">
                     <thead>
                         <tr>
@@ -84,7 +126,7 @@ export function Ventas() {
                         </tr>
                     </thead>
                     <tbody>
-                        {ventas.map((venta) => (
+                        {filteredVentas.map((venta) => (
                             <tr key={venta.id_ventas}>
                                 <td>{venta.id_ventas}</td>
                                 <td>{venta.id_cliente}</td>
@@ -93,12 +135,22 @@ export function Ventas() {
                                 <td>{venta.Monto}</td>
                                 <td>{venta.FechaHora}</td>
                                 <td>{venta.cancelado}</td>
+                                {session?.user?.nivel === 1 && (
+                                    <td>
+                                        <span className="btn-group">
+                                            <a className="btn btn2" onClick={() => handleDelete(venta.id_ventas)}>Eliminar</a>
+                                            <a className="btn btn2" onClick={() => handleEdit(venta.id_ventas)}>Modificar</a>
+                                            <a className="btn btn2" onClick={() => handleSuspend(venta.id_ventas, venta.cancelado)}>Suspender</a>
+                                        </span>
+                                    </td>
+                                )}
+                                {session?.user?.nivel !== 1 && (
                                 <td>
                                     <span className="btn-group">
-                                        <a className="btn btn2" onClick={() => handleDelete(venta.id_ventas)}>Eliminar</a>
-                                        <a className="btn btn2">Modificar</a>
+                                        <a className="btn btn2" onClick={() => handleSuspend(venta.id_ventas, venta.cancelado)}>Suspender</a>
                                     </span>
                                 </td>
+                                )}
                             </tr>
                         ))}
                     </tbody>

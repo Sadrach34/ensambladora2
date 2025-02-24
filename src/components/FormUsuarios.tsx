@@ -7,7 +7,6 @@ export function FormUsuario() {
 
     const onSubmit = handleSubmit(async (data) => {
         try {
-            // Convertir los valores de Idioma y nivel a números enteros
             data.Idioma = parseInt(data.Idioma, 10);
             data.nivel = parseInt(data.nivel, 10);
 
@@ -23,7 +22,7 @@ export function FormUsuario() {
             data.Clave = CryptoJS.SHA256(data.Clave).toString(CryptoJS.enc.Hex);
 
             console.log('Enviando datos:', data);
-            const res = await fetch('/api/note', {
+            const res = await fetch('/api/note?table=usuarios', { // Aquí se agrega el parámetro table
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -124,7 +123,7 @@ export function FormUsuario() {
                 </div>
                 <div>
                     <input
-                        className="w-full password-input"
+                        className="w-full"
                         type="text"
                         placeholder="Idioma"
                         {...register("Idioma", {
