@@ -13,10 +13,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Note {
-  idVentas   BigInt @id @default(autoincrement())
-  idCliente  BigInt
-  idComponen BigInt
-  monto      Decimal
-  fechaHora  DateTime @default(now())
+model Ventas {
+  id_ventas   BigInt @id @default(autoincrement())
+  id_cliente  BigInt?
+  id_componen BigInt?
+  Id_usuario  BigInt?
+  Monto       Decimal?
+  FechaHora   DateTime? @default(now())
+  cancelado   String?
+}
+model Clientes {
+  Id_cliente  BigInt @id @default(autoincrement())
+  cliente     String?
+  Celular     String?
+  Domicilio   String? 
+  suspendido  String?
+}
+model Componentes {
+  id_componen  BigInt @id @default(autoincrement())
+  componente   String?
+  precio       Int?
+  Disponible   Int?
+  baja         String?
+}
+model Usuarios {
+  Id_usuario  BigInt @id @default(autoincrement())
+  Usuario     String? @unique
+  Cuenta      String? @unique
+  Clave       String?
+  nivel       Int?
+  Idioma      Int? 
+  activo      String?  
 }
