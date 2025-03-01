@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { FormUsuario } from '@/components/FormUsuarios';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 async function getUsuarios() {
     const res = await fetch('http://localhost:3000/api/note?table=usuarios');
@@ -41,6 +41,52 @@ export const Usuarios = () => {
     const [filter, setFilter] = useState('Todos');
     const router = useRouter();
     const { data: session } = useSession();
+    
+        const texts = {
+            es: {
+                title: 'Usuarios',
+                search: 'Buscar...',
+                all: 'Todos',
+                suspended: 'Suspendidos',
+                notSuspended: 'No suspend',
+                notFound: 'Usuario no encontrado',
+                error: 'Error al buscar el usuario',
+                id: 'id_usuario',
+                user: 'Usuario',
+                account: 'Cuenta',
+                password: 'Clave',
+                level: 'Nivel',
+                language: 'Idioma',
+                asset: 'activo',
+                options: 'Opciones',
+                delete: 'Eliminar',
+                modify: 'Modificar',
+                suspend: 'Suspender'
+            },
+            en: {
+                title: 'Users',
+                search: 'Search...',
+                all: 'All',
+                suspended: 'Suspended',
+                notSuspended: 'Not suspended',
+                notFound: 'User not found',
+                error: 'Error searching the user',
+                id: 'id_user',
+                user: 'User',
+                account: 'Account',
+                password: 'Password',
+                level: 'Level',
+                language: 'Language',
+                asset: 'asset',
+                options: 'Options',
+                delete: 'Delete',
+                modify: 'Modify',
+                suspend: 'Suspend'
+            }
+        }
+    
+        const language = session?.user?.Idioma === 2 ? 'en' : 'es';
+        const t = texts[language];
 
     useEffect(() => {
         async function fetchData() {
@@ -66,14 +112,14 @@ export const Usuarios = () => {
                 setUsuarios([data.record]);
                 setError(null);
             } else {
-                setError('Usuario no encontrado');
+                setError(t.notFound);
                 setUsuarios([]);
-                alert('Usuario no encontrado');
+                alert(t.notFound);
             }
         } catch (err) {
-            setError('Error al buscar el usuario');
+            setError(t.error);
             setUsuarios([]);
-            alert('Error al buscar el usuario: ' + err);
+            alert(t.error + err);
         }
     }
 
@@ -92,9 +138,9 @@ export const Usuarios = () => {
     };
 
     const filteredUsuarios = usuarios.filter((usuario) => {
-        if (filter === 'Todos') return true;
-        if (filter === 'No suspendidos') return usuario.activo === 'S';
-        if (filter === 'Suspendidos') return usuario.activo !== 'S';
+        if (filter === t.all) return true;
+        if (filter === t.notSuspended) return usuario.activo === 'S';
+        if (filter === t.suspend) return usuario.activo !== 'S';
         return true;
     });
 
@@ -108,25 +154,25 @@ export const Usuarios = () => {
                     value={searchId}
                     onChange={(e) => setSearchId(e.target.value)}
                     />
-                    <a className="btn" onClick={handleGet}>Buscar</a>
+                    <a className="btn" onClick={handleGet}>{t.search}</a>
                 </div>
                 <FormUsuario />
                 <select className="filtro" value={filter} onChange={(e) => setFilter(e.target.value)}>
-                    <option>Todos</option>
-                    <option>No suspendidos</option>
-                    <option>Suspendidos</option>
+                    <option>{t.all}</option>
+                    <option>{t.notSuspended}</option>
+                    <option>{t.suspend}</option>
                 </select>
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>id_usuario</th>
-                            <th>Usuario</th>
-                            <th>Cuenta</th>
-                            <th>Clave</th>
-                            <th>Nivel</th>
-                            <th>Idioma</th>
-                            <th>activo</th>
-                            <th>Opciones</th>
+                            <th>{t.id}</th>
+                            <th>{t.user}</th>
+                            <th>{t.account}</th>
+                            <th>{t.password}</th>
+                            <th>{t.level}</th>
+                            <th>{t.language}</th>
+                            <th>{t.asset}</th>
+                            <th>{t.options}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -142,16 +188,16 @@ export const Usuarios = () => {
                                 {session?.user?.nivel === 1 && (
                                     <td>
                                         <span className="btn-group">
-                                            <a className="btn btn2" onClick={() => handleDelete(usuario.Id_usuario)}>Eliminar</a>
-                                            <a className="btn btn2" onClick={() => handleEdit(usuario.Id_usuario)}>Modificar</a>
-                                            <a className="btn btn2" onClick={() => handleSuspend(usuario.Id_usuario, usuario.activo)}>Suspender</a>
+                                            <a className="btn btn2" onClick={() => handleDelete(usuario.Id_usuario)}>{t.delete}</a>
+                                            <a className="btn btn2" onClick={() => handleEdit(usuario.Id_usuario)}>{t.modify}</a>
+                                            <a className="btn btn2" onClick={() => handleSuspend(usuario.Id_usuario, usuario.activo)}>{t.suspended}</a>
                                         </span>
                                     </td>
                                 )}
                                 {session?.user?.nivel !== 1 && (
                                 <td>
                                     <span className="btn-group">
-                                        <a className="btn btn2" onClick={() => handleSuspend(usuario.Id_usuario, usuario.activo)}>Suspender</a>
+                                        <a className="btn btn2" onClick={() => handleSuspend(usuario.Id_usuario, usuario.activo)}>{t.suspended}</a>
                                     </span>
                                 </td>
                                 )}

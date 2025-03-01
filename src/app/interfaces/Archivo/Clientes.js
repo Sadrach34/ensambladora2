@@ -44,6 +44,48 @@ export const Clientes = () => {
     const router = useRouter();
     const { data: session } = useSession();
 
+    const texts = {
+        es: {
+            title: 'Clientes',
+            search: 'Buscar...',
+            all: 'Todos',
+            suspended: 'Suspendidos',
+            notSuspended: 'No suspend',
+            notFound: 'Cliente no encontrado',
+            error: 'Error al buscar el cliente',
+            id: 'id_Cliente',
+            client: 'Cliente',
+            cell: 'Celular',
+            address: 'Domicilio',
+            suspended: 'suspendido',
+            options: 'Opciones',
+            delete: 'Eliminar',
+            modify: 'Modificar',
+            suspend: 'Suspender'
+        },
+        en: {
+            title: 'Clients',
+            search: 'Search...',
+            all: 'All',
+            suspended: 'Suspended',
+            notSuspended: 'Not suspended',
+            notFound: 'Client not found',
+            error: 'Error searching client',
+            id: 'id_Client',
+            client: 'Client',
+            cell: 'Cellphone',
+            address: 'Address',
+            suspended: 'suspended',
+            options: 'Options',
+            delete: 'Delete',
+            modify: 'Modify',
+            suspend: 'Suspend'
+        }
+    }
+
+    const language = session?.user?.Idioma === 2 ? 'en' : 'es';
+    const t = texts[language];
+
     useEffect(() => {
         async function fetchData() {
             const data = await getClientes();
@@ -64,14 +106,14 @@ export const Clientes = () => {
                 setClientes([data.record]);
                 setError(null);
             } else {
-                setError('Cliente no encontrado');
+                setError(t.notFound);
                 setClientes([]);
-                alert('Cliente no encontrado');
+                alert(t.notFound);
             }
         } catch (err) {
-            setError('Error al buscar el cliente');
+            setError(t.error);
             setClientes([]);
-            alert('Error al buscar el cliente' + err + { error });
+            alert(t.error + err + { error });
         }
     };
 
@@ -90,9 +132,9 @@ export const Clientes = () => {
     };
 
     const filteredClientes = clientes.filter((cliente) => {
-        if (filter === 'Todos') return true;
-        if (filter === 'No suspendidos') return cliente.suspendido === 'N';
-        if (filter === 'Suspendidos') return cliente.suspendido !== 'N';
+        if (filter === t.all) return true;
+        if (filter === t.notSuspended) return cliente.suspendido === 'N';
+        if (filter === t.suspend) return cliente.suspendido !== 'N';
         return true;
     });
 
@@ -107,23 +149,23 @@ export const Clientes = () => {
                         value={searchId}
                         onChange={(e) => setSearchId(e.target.value)}
                     />
-                    <a className="btn" onClick={handleGet}>Buscar</a>
+                    <a className="btn" onClick={handleGet}>{t.search}</a>
                 </div>
                 <FormCliente />
                 <select className="filtro" value={filter} onChange={(e) => setFilter(e.target.value)}>
-                    <option>Todos</option>
-                    <option>No suspendidos</option>
-                    <option>Suspendidos</option>
+                    <option>{t.all}</option>
+                    <option>{t.notSuspended}</option>
+                    <option>{t.suspend}</option>
                 </select>
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>id_Cliente</th>
-                            <th>Cliente</th>
-                            <th>Celular</th>
-                            <th>Domicilo</th>
-                            <th>suspendido</th>
-                            <th>Opciones</th>
+                            <th>{t.id}</th>
+                            <th>{t.client}</th>
+                            <th>{t.cell}</th>
+                            <th>{t.address}</th>
+                            <th>{t.suspended}</th>
+                            <th>{t.options}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -137,16 +179,16 @@ export const Clientes = () => {
                                 {session?.user?.nivel === 1 && (
                                     <td>
                                         <span className="btn-group">
-                                            <a className="btn btn2" onClick={() => handleDelete(cliente.Id_cliente)}>Eliminar</a>
-                                            <a className="btn btn2" onClick={() => handleEdit(cliente.Id_cliente)}>Modificar</a>
-                                            <a className="btn btn2" onClick={() => handleSuspend(cliente.Id_cliente, cliente.suspendido)}>Suspender</a>
+                                            <a className="btn btn2" onClick={() => handleDelete(cliente.Id_cliente)}>{t.delete}</a>
+                                            <a className="btn btn2" onClick={() => handleEdit(cliente.Id_cliente)}>{t.modify}</a>
+                                            <a className="btn btn2" onClick={() => handleSuspend(cliente.Id_cliente, cliente.suspendido)}>{t.suspend}</a>
                                         </span>
                                     </td>
                                 )}
                                 {session?.user?.nivel !== 1 && (
                                     <td>
                                         <span className="btn-group">
-                                            <a className="btn btn2" onClick={() => handleSuspend(cliente.Id_cliente, cliente.suspendido)}>Suspender</a>
+                                            <a className="btn btn2" onClick={() => handleSuspend(cliente.Id_cliente, cliente.suspendido)}>{t.suspend}</a>
                                         </span>
                                     </td>
                                 )}

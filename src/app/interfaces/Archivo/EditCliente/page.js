@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 
 async function getCliente(id) {
@@ -40,6 +41,31 @@ const EditCliente = () => {
         suspendido: '',
     });
     const [error, setError] = useState(null);
+    const { data: session } = useSession();
+
+    const texts = {
+        es: {
+            title: 'Modificar Cliente',
+            name: 'Nombre:',
+            phone: 'Celular:',
+            address: 'Domicilio:',
+            suspended: 'Suspendido:',
+            modify: 'Modificar:',
+            cancel: 'Cancelar:',
+        },
+        en: {
+            title: 'Edit Client',
+            name: 'Name:',
+            phone: 'Phone:',
+            address: 'Address:',
+            suspended: 'Suspended:',
+            modify: 'Modify:',
+            cancel: 'Cancel:',
+        }
+    }
+
+    const language = session?.user?.Idioma === 2 ? 'en' : 'es';
+    const t = texts[language];
 
     useEffect(() => {
         if (id) {
@@ -82,9 +108,29 @@ const EditCliente = () => {
     if (error) return <div>Error: {error}</div>;
     if (!cliente) return <div>Cargando...</div>;
 
+    const handleCancel = () => {
+        router.push('/');
+    }
+
+    // const renderComponent = () => {
+    //     switch (activeComponent) {
+    //       case 'archivo':
+    //         return <Archivo />;
+    
+    //       case 'reportes':
+    //         return <Reportes />;
+    
+    //       case 'preferencias':
+    //         return <Preferencias />;
+    
+    //       default:
+    //         return <PantallaPrincipal />;
+    //     }
+    // };
+
     return (
         <div className="form-container">
-            <h1>Modificar Cliente</h1>
+            <h1>{t.title}</h1>
             <form className="form-modi" onSubmit={handleSubmit}>
                 <div className="image-container">
                     <Image src="/logo.png" alt="Descripción de la imagen" width={250} height={250} />
@@ -93,7 +139,7 @@ const EditCliente = () => {
 
                 <div className="form-fields">
                     <div className="form-row">
-                        <label>Nombre:</label>
+                        <label>{t.name}</label>
                         <input
                             type="text"
                             name="cliente"
@@ -103,7 +149,7 @@ const EditCliente = () => {
                         />
                     </div>
                     <div className="form-row">
-                        <label>Celular:</label>
+                        <label>{t.phone}</label>
                         <input
                             type="text"
                             name="Celular"
@@ -114,7 +160,7 @@ const EditCliente = () => {
                     </div>
 
                     <div className="form-row">
-                        <label>Domicilio:</label>
+                        <label>{t.address}</label>
                         <input
                             type="text"
                             name="Domicilio"
@@ -125,7 +171,7 @@ const EditCliente = () => {
                     </div>
 
                     <div className="form-row">
-                        <label>Suspendido:</label>
+                        <label>{t.suspended}</label>
                         <input
                             type="text"
                             name="suspendido"
@@ -136,8 +182,8 @@ const EditCliente = () => {
                     </div>
                 </div>
                 <div className="form-buttons">
-                    <button type="submit" name="modificar">Modificar</button>
-                    <button type="button">Cancelar</button>
+                    <button type="submit" name="modificar">{t.modify}</button>
+                    <button type="button" onClick={handleCancel}>{t.cancel}</button>
                 </div>
             </form>
         </div>

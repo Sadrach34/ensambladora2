@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 
 export const PantallaPrincipal = () => {
     const { data: session } = useSession();
+
     return (
         <>
             <div className="image-container">
@@ -11,19 +12,25 @@ export const PantallaPrincipal = () => {
             </div>
             <div>
                 {session ? (
-                <p>(nivel: {session.user.nivel})</p>
+                    <p>(nivel: {session.user.nivel})</p>
                 ) : (
-                <p>No has iniciado sesión </p>
+                    <p>No has iniciado sesión</p>
+                )}
+            </div>
+            <div>
+                {session ? (
+                    <p>(Idioma: {session.user.Idioma})</p>
+                ) : (
+                    <p>No has iniciado sesión</p>
                 )}
             </div>
             <div className="image-container">
                 {session ? (
-                <p>Bienvenido, {session.user.name}</p>
+                    <p>Bienvenido, {session.user.name}</p>
                 ) : (
-                <p>No has iniciado sesión </p>
+                    <p>No has iniciado sesión</p>
                 )}
-                
             </div>
         </>
     );
-}
+};

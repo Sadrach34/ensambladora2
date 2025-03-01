@@ -1,14 +1,42 @@
 import React, { useState } from 'react';
-import { PantallaPrincipal } from "../../PantallaPrincipal";
+import { useSession } from 'next-auth/react';
 
 export const CambiarContra = () => {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [repeatNewPassword, setRepeatNewPassword] = useState('');
+    const { data: session } = useSession();
+    
+        const texts = {
+            es: {
+                cambiarContra: 'Cambiar Contraseña',
+                introduceContraActual: 'Introduce tu contraseña actual:',
+                introduceContraNueva: 'Introduce la contraseña nueva:',
+                repiteContraNueva: 'Repite la contraseña nueva:',
+                cambiar: 'Cambiar',
+                contrasNoCoinciden: 'Las contraseñas nuevas no coinciden',
+                errorCambiarContra: 'Error al cambiar la contraseña',
+                alert: 'Las contraseñas nuevas no coinciden',
+            },
+            en: {
+                cambiarContra: 'Change Password',
+                introduceContraActual: 'Enter your current password:',
+                introduceContraNueva: 'Enter the new password:',
+                repiteContraNueva: 'Repeat the new password:',
+                cambiar: 'Change',
+                contrasNoCoinciden: 'The new passwords do not match',
+                errorCambiarContra: 'Error changing the password',
+                alert: 'The new passwords do not match',
+            }
+        }
+    
+        const language = session?.user?.Idioma === 2 ? 'en' : 'es';
+        const t = texts[language];
+    
 
     const handleChangePassword = async () => {
         if (newPassword !== repeatNewPassword) {
-            alert("Las contraseñas nuevas no coinciden");
+            alert(t.alert);
             return;
         }
 
@@ -18,7 +46,7 @@ export const CambiarContra = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ newPassword }),
+                body: JSON.stringify({ currentPassword, newPassword }),
             });
 
             const data = await response.json();
@@ -28,16 +56,16 @@ export const CambiarContra = () => {
                 alert(`Error: ${data.message}`);
             }
         } catch (error) {
-            console.error('Error al cambiar la contraseña:', error);
-            alert('Error al cambiar la contraseña');
+            console.error(error);
+            alert(t.errorCambiarContra);
         }
     };
 
     return (
         <div className="preferencias">
             <div className="">
-                <h1>Cambiar Contraseña</h1>
-                <h3>Introduce tu contraseña actual:</h3>
+                <h1>{t.cambiarContra}</h1>
+                <h3>{t.introduceContraActual}</h3>
                 <input
                     className="inpIdio"
                     type="password"
@@ -48,7 +76,7 @@ export const CambiarContra = () => {
             </div>
 
             <div className="">
-                <h3>Introduce la contraseña nueva:</h3>
+                <h3>{t.introduceContraNueva}</h3>
                 <input
                     className="inpIdio"
                     type="password"
@@ -56,7 +84,7 @@ export const CambiarContra = () => {
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                 />
-                <h3>Repite la contraseña nueva:</h3>
+                <h3>{t.repiteContraNueva}</h3>
                 <input
                     className="inpIdio"
                     type="password"
@@ -67,8 +95,7 @@ export const CambiarContra = () => {
             </div>
 
             <div>
-                <button className="btnIdio" onClick={handleChangePassword}>Cambiar</button>
-                <button className="btnIdio" onClick={() => { PantallaPrincipal() }}>Volver</button>
+                <button className="btnIdio" onClick={handleChangePassword}>{t.cambiar}</button>
             </div>
         </div>
     );

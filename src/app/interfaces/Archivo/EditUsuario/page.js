@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 async function getUsuario(id) {
     const res = await fetch(`http://localhost:3000/api/note/${id}?table=usuarios`, {
@@ -41,6 +42,35 @@ const EditUsuario = () => {
         activo: '',
     });
     const [error, setError] = useState(null);
+    const { data: session } = useSession();
+
+    const texts = {
+        es: {
+            title: 'Modificar Usuario',
+            user: 'Usuario:',
+            account: 'Cuenta:',
+            password: 'Clave:',
+            level: 'Nivel:',
+            language: 'Idioma:',
+            active: 'Activo:',
+            modify: 'Modificar:',
+            cancel: 'Cancelar:',
+        },
+        en: {
+            title: 'Edit User',
+            user: 'User:',
+            account: 'Account:',
+            password: 'Password:',
+            level: 'Level:',
+            language: 'Language:',
+            active: 'Active:',
+            modify: 'Modify:',
+            cancel: 'Cancel:',
+        },
+    };
+    
+    const language = session?.user?.Idioma === 2 ? 'en' : 'es';
+    const t = texts[language];
 
     useEffect(() => {
         if (id) {
@@ -51,9 +81,8 @@ const EditUsuario = () => {
                     setFormData({
                         Usuario: data.record.Usuario || '',
                         Cuenta: data.record.Cuenta || '',
-                        Clave: data.record.Clave || '',
-                        nivel: data.record.nivel || '',
-                        Idioma: data.record.Idioma || '',
+                        nivel: data.record.nivel || 0,
+                        Idioma: data.record.Idioma || 0,
                         activo: data.record.activo || '',
                     });
                 } catch (err) {
@@ -68,7 +97,7 @@ const EditUsuario = () => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
             ...prevData,
-            [name]: value,
+            [name]: name === 'nivel' || name === 'Idioma' ? Number(value) : value,
         }));
     };
 
@@ -85,14 +114,17 @@ const EditUsuario = () => {
     if (error) return <div>Error: {error}</div>;
     if (!usuario) return <div>Cargando...</div>;
 
+    const handleCancel = () => {
+        router.push('/');
+    }
     return (
         <div className="form-container">
-            <h1>Modificar Usuario</h1>
+            <h1>{t.title}</h1>
             <form className="form-modi" onSubmit={handleSubmit}>
 
                 <div className="form-fields">
                     <div className="form-row">
-                        <label>Usuario:</label>
+                        <label>{t.user}</label>
                         <input
                             type="text"
                             name="Usuario"
@@ -102,7 +134,7 @@ const EditUsuario = () => {
                         />
                     </div>
                     <div className="form-row">
-                        <label>Cuenta:</label>
+                        <label>{t.account}</label>
                         <input
                             type="text"
                             name="Cuenta"
@@ -112,19 +144,9 @@ const EditUsuario = () => {
                         />
                     </div>
                     <div className="form-row">
-                        <label>Clave:</label>
+                        <label>{t.level}</label>
                         <input
-                            type="password"
-                            name="Clave"
-                            placeholder="Clave..."
-                            value={formData.Clave}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="form-row">
-                        <label>Nivel:</label>
-                        <input
-                            type="text"
+                            type="number"
                             name="nivel"
                             placeholder="Nivel..."
                             value={formData.nivel}
@@ -132,9 +154,9 @@ const EditUsuario = () => {
                         />
                     </div>
                     <div className="form-row">
-                        <label>Idioma:</label>
+                        <label>{t.language}</label>
                         <input
-                            type="text"
+                            type="number"
                             name="Idioma"
                             placeholder="Idioma..."
                             value={formData.Idioma}
@@ -142,7 +164,7 @@ const EditUsuario = () => {
                         />
                     </div>
                     <div className="form-row">
-                        <label>Activo:</label>
+                        <label>{t.active}</label>
                         <input
                             type="text"
                             name="activo"
@@ -153,8 +175,8 @@ const EditUsuario = () => {
                     </div>
                 </div>
                 <div className="form-buttons">
-                    <button type="submit" name="modificar">Modificar</button>
-                    <button type="button">Cancelar</button>
+                    <button type="submit" name="modificar">{t.modify}</button>
+                    <button type="button" onClick={handleCancel}>{t.cancel}</button>
                 </div>
             </form>
         </div>

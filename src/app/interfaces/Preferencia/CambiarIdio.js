@@ -1,8 +1,34 @@
 import React, { useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 export const CambiarIdio = () => {
     const [currentPassword, setCurrentPassword] = useState('');
-    const [newLanguage, setNewLanguage] = useState(1); // 1 para español por defecto
+    const [newLanguage, setNewLanguage] = useState(1);
+    const { data: session } = useSession();
+        
+    const texts = {
+        es: {
+            alert: 'Error al cambiar el idioma',
+            title: 'Cambiar Idioma',
+            currentPassword: 'Introduce tu contraseña actual:',
+            newLanguage: 'Selecciona tu nuevo idioma:',
+            spanish: 'Español',
+            english: 'Ingles',
+            change: 'Cambiar'
+        },
+        en: {
+            alert: 'Error changing language',
+            title: 'Change Language',
+            currentPassword: 'Enter your current password:',
+            newLanguage: 'Select your new language:',
+            spanish: 'Spanish',
+            english: 'English',
+            change: 'Change'
+        }
+    }
+
+    const language = session?.user?.Idioma === 2 ? 'en' : 'es';
+    const t = texts[language];
 
     const handleChangeLanguage = async () => {
         try {
@@ -23,16 +49,16 @@ export const CambiarIdio = () => {
             const data = await response.json();
             alert(data.message);
         } catch (error) {
-            console.error('Error al cambiar el idioma:', error);
-            alert('Error al cambiar el idioma');
+            console.error(error);
+            alert(t.alert);
         }
     };
 
     return (
         <div className="preferencias">
             <div>
-                <h1>Cambiar Idioma</h1>
-                <h3>Introduce tu contraseña actual:</h3>
+                <h1>{t.title}</h1>
+                <h3>{t.currentPassword}</h3>
                 <input
                     className="inpIdio"
                     type="password"
@@ -41,19 +67,18 @@ export const CambiarIdio = () => {
                     onChange={(e) => setCurrentPassword(e.target.value)}
                 />
 
-                <h3>Selecciona tu nuevo idioma:</h3>
+                <h3>{t.newLanguage}</h3>
                 <select
                     className="inpIdio"
                     value={newLanguage}
                     onChange={(e) => setNewLanguage(parseInt(e.target.value))}
                 >
-                    <option value={1}>Español</option>
-                    <option value={2}>English</option>
+                    <option value={1}>{t.spanish}</option>
+                    <option value={2}>{t.english}</option>
                 </select>
             </div>
             <div>
-                <button className="btnIdio" onClick={handleChangeLanguage}>Cambiar</button>
-                <button className="btnIdio">Volver</button>
+                <button className="btnIdio" onClick={handleChangeLanguage}>{t.change}</button>
             </div>
         </div>
     );

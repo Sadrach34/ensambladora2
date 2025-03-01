@@ -155,7 +155,7 @@ export async function PUT(request: Request, context: Params) {
         const table = url.searchParams.get('table');
         if (!table) {
             throw new Error('Table parameter is missing');
-        }
+        } 
 
         const model = getModel(table);
         const idField = getIdField(table);

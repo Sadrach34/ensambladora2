@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 
 async function getComponente(id) {
     const res = await fetch(`http://localhost:3000/api/note/${id}?table=componentes`, {
@@ -42,6 +42,35 @@ const EditCompo = () => {
         baja: '',
     });
     const [error, setError] = useState(null);
+    const { data: session } = useSession();
+
+    const texts = {
+        es: {
+            title: 'Modificar Componente',
+            component: 'Componente:',
+            price: 'Precio:',
+            available: 'Disponible:',
+            modify: 'Modificar:',
+            cancel: 'Cancelar:',
+            low: 'Baja:',
+        },
+        en: {
+            title: 'Edit Component',
+            component: 'Component:',
+            price: 'Price:',
+            available: 'Available:',
+            modify: 'Modify:',
+            cancel: 'Cancel:',
+            low: 'Low:',
+        },
+    };
+    
+    const language = session?.user?.Idioma === 2 ? 'en' : 'es';
+    const t = texts[language];
+
+    const handleCancel = () => {
+        router.push('/');
+    };
 
     useEffect(() => {
         if (id) {
@@ -93,12 +122,12 @@ const EditCompo = () => {
 
     return (
         <div className="form-container">
-            <h1>Modificar Componente</h1>
+            <h1>{t.title}</h1>
             <form className="form-modi" onSubmit={handleSubmit}>
 
                 <div className="form-fields">
                     <div className="form-row">
-                        <label>Componente:</label>
+                        <label>{t.component}</label>
                         <input
                             type="text"
                             name="componente"
@@ -108,7 +137,7 @@ const EditCompo = () => {
                         />
                     </div>
                     <div className="form-row">
-                        <label>Precio:</label>
+                        <label>{t.price}</label>
                         <input
                             type="text"
                             name="precio"
@@ -119,7 +148,7 @@ const EditCompo = () => {
                     </div>
 
                     <div className="form-row">
-                        <label>Disponible:</label>
+                        <label>{t.available}</label>
                         <input
                             type="text"
                             name="Disponible"
@@ -130,7 +159,7 @@ const EditCompo = () => {
                     </div>
 
                     <div className="form-row">
-                        <label>Baja:</label>
+                        <label>{t.low}</label>
                         <input
                             type="text"
                             name="baja"
@@ -141,8 +170,8 @@ const EditCompo = () => {
                     </div>
                 </div>
                 <div className="form-buttons">
-                    <button type="submit" name="modificar">Modificar</button>
-                    <button type="button">Cancelar</button>
+                    <button type="submit" name="modificar">{t.modify}</button>
+                    <button type="button" onClick={handleCancel}>{t.cancel}</button>
                 </div>
             </form>
         </div>

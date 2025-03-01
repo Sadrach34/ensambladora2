@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
+
 async function getClientes() {
     const res = await fetch('http://localhost:3000/api/note?table=clientes');
     const data = await res.json();

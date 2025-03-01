@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { FormComponentes } from '@/components/FormComponentes';
 import { useSession } from 'next-auth/react';
+import { FormComponentes } from '@/components/FormComponentes';
+import { title } from 'process';
 
 async function getComponente() {
     const res = await fetch('http://localhost:3000/api/note?table=componentes');
@@ -42,6 +43,48 @@ export const Componentes = () => {
     const router = useRouter();
     const { data: session } = useSession();
 
+    const texts = {
+        es: {
+            title: 'Componentes',
+            search: 'Buscar...',
+            all: 'Todos',
+            suspended: 'Suspendidos',
+            notSuspended: 'No suspend',
+            notFound: 'Componente no encontrado',
+            error: 'Error al buscar el componente',
+            id: 'id_componen',
+            component: 'Componente',
+            price: 'Precio',
+            available: 'Disponible',
+            suspended: 'baja',
+            options: 'Opciones',
+            delete: 'Eliminar',
+            modify: 'Modificar',
+            suspend: 'Suspender'
+        },
+        en: {
+            title: 'Components',
+            search: 'Search...',
+            all: 'All',
+            suspended: 'Suspended',
+            notSuspended: 'Not suspended',
+            notFound: 'Component not found',
+            error: 'Error searching component',
+            id: 'id_componen',
+            component: 'Component',
+            price: 'Price',
+            available: 'Available',
+            suspended: 'baja',
+            options: 'Options',
+            delete: 'Delete',
+            modify: 'Modify',
+            suspend: 'Suspend'
+        }
+    }
+
+    const language = session?.user?.Idioma === 2 ? 'en' : 'es';
+    const t = texts[language];
+
     useEffect(() => {
         async function fetchData() {
             const data = await getComponente();
@@ -62,14 +105,14 @@ export const Componentes = () => {
                 setComponente([data.record]);
                 setError(null);
             } else {
-                setError('Componente no encontrado');
+                setError(t.notFound);
                 setComponente([]);
-                alert('Componente no encontrado');
+                alert(t.notFound);
             }
         } catch (err) {
-            setError('Error al buscar el componente');
+            setError(t.error);
             setComponente([]);
-            alert('Error al buscar el componente' + err + { error });
+            alert(t.error + err + { error });
         }
     };
 
@@ -88,9 +131,9 @@ export const Componentes = () => {
     };
 
     const filteredComponentes = componentes.filter((componente) => {
-        if (filter === 'Todos') return true;
-        if (filter === 'No suspendidos') return componente.baja === 'N';
-        if (filter === 'Suspendidos') return componente.baja !== 'N';
+        if (filter === t.all) return true;
+        if (filter === t.notSuspended) return componente.baja === 'N';
+        if (filter === t.suspend) return componente.baja !== 'N';
         return true;
     });
 
@@ -105,23 +148,23 @@ export const Componentes = () => {
                         value={searchId}
                         onChange={(e) => setSearchId(e.target.value)}
                     />
-                    <a className="btn" onClick={handleGet}>Buscar</a>
+                    <a className="btn" onClick={handleGet}>{t.search}</a>
                 </div>
                 <FormComponentes />
                 <select className="filtro" value={filter} onChange={(e) => setFilter(e.target.value)}>
-                    <option>Todos</option>
-                    <option>No suspendidos</option>
-                    <option>Suspendidos</option>
+                    <option>{t.all}</option>
+                    <option>{t.notSuspended}</option>
+                    <option>{t.suspend}</option>
                 </select>
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>id_componen</th>
-                            <th>Componente</th>
-                            <th>Precio</th>
-                            <th>Disponible</th>
-                            <th>baja</th>
-                            <th>Opciones</th>
+                            <th>{t.id}</th>
+                            <th>{t.component}</th>
+                            <th>{t.price}</th>
+                            <th>{t.available}</th>
+                            <th>{t.suspend}</th>
+                            <th>{t.options}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -135,16 +178,16 @@ export const Componentes = () => {
                                 {session?.user?.nivel === 1 && (
                                     <td>
                                         <span className="btn-group">
-                                            <a className="btn btn2" onClick={() => handleDelete(componente.id_componen)}>Eliminar</a>
-                                            <a className="btn btn2" onClick={() => handleEdit(componente.id_componen)}>Modificar</a>
-                                            <a className="btn btn2" onClick={() => handleSuspend(componente.id_componen, componente.baja)}>Suspender</a>
+                                            <a className="btn btn2" onClick={() => handleDelete(componente.id_componen)}>{t.delete}</a>
+                                            <a className="btn btn2" onClick={() => handleEdit(componente.id_componen)}>{t.modify}</a>
+                                            <a className="btn btn2" onClick={() => handleSuspend(componente.id_componen, componente.baja)}>{t.suspend}</a>
                                         </span>
                                     </td>
                                 )}
                                 {session?.user?.nivel !== 1 && (
                                     <td>
                                         <span className="btn-group">
-                                            <a className="btn btn2" onClick={() => handleSuspend(componente.id_componen, componente.baja)}>Suspender</a>
+                                            <a className="btn btn2" onClick={() => handleSuspend(componente.id_componen, componente.baja)}>{t.suspend}</a>
                                         </span>
                                     </td>
                                 )}

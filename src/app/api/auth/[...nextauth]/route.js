@@ -9,29 +9,26 @@ export const authOptions = {
             name: 'Credentials',
             credentials: {
                 username: { label: "Usuario", type: "text", placeholder: "jsmith" },
-                password: {  label: "Clave", type: "password", placeholder: "****" },
+                password: { label: "Clave", type: "password", placeholder: "****" },
             },
             async authorize(Credentials) {
-                console.log(Credentials);
-                
+
                 const UserFound = await db.usuarios.findUnique({
                     where: {
                         Usuario: Credentials.username
                     }
                 });
                 if (!UserFound) throw new Error('Usuario no encontrado');
-                console.log(UserFound);
 
                 const hashedPassword = CryptoJS.SHA256(Credentials.password).toString();
 
                 if (hashedPassword !== UserFound.Clave) throw new Error('contraseña incorrecta');
-                
+
                 return {
                     id: UserFound.id,
                     name: UserFound.Usuario,
-                    Cuenta: UserFound.Cuenta,
-                    Clave: UserFound.Clave,
                     nivel: UserFound.nivel,
+                    Idioma: UserFound.Idioma
                 };
             }
         })
@@ -43,12 +40,14 @@ export const authOptions = {
         async session({ session, token }) {
             session.user.id = token.id;
             session.user.nivel = token.nivel;
+            session.user.Idioma = token.Idioma;
             return session;
         },
         async jwt({ token, user }) {
             if (user) {
                 token.id = user.id;
                 token.nivel = user.nivel;
+                token.Idioma = user.Idioma;
             }
             return token;
         }

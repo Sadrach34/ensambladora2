@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 async function getVenta(id) {
     const res = await fetch(`http://localhost:3000/api/note/${id}?table=ventas`, {
@@ -41,6 +42,35 @@ const EditVenta = () => {
         cancelado: '',
     });
     const [error, setError] = useState(null);
+    const { data: session } = useSession();
+
+    const texts = {
+        es: {
+            title: 'Modificar Venta',
+            idClient: 'Cliente ID:',
+            idComponent: 'Componente ID:',
+            idUser: 'Usuario ID:',
+            amount: 'Monto:',
+            dateHour: 'Fecha y Hora:',
+            canceled: 'Cancelado:',
+            modify: 'Modificar:',
+            cancel: 'Cancelar:',
+        },
+        en: {
+            title: 'Edit Sale',
+            idClient: 'Client ID:',
+            idComponent: 'Component ID:',
+            idUser: 'User ID:',
+            amount: 'Amount:',
+            dateHour: 'Date and Time:',
+            canceled: 'Canceled',
+            modify: 'Modify:',
+            cancel: 'Cancel:',
+        },
+    };
+    
+    const language = session?.user?.Idioma === 2 ? 'en' : 'es';
+    const t = texts[language];
 
     useEffect(() => {
         if (id) {
@@ -85,14 +115,18 @@ const EditVenta = () => {
     if (error) return <div>Error: {error}</div>;
     if (!venta) return <div>Cargando...</div>;
 
+    const handleCancel = () => {
+        router.push('/');
+    }
+
     return (
         <div className="form-container">
-            <h1>Modificar Venta</h1>
+            <h1>{t.title}</h1>
             <form className="form-modi" onSubmit={handleSubmit}>
 
                 <div className="form-fields">
                     <div className="form-row">
-                        <label>Cliente ID:</label>
+                        <label>{t.idClient}</label>
                         <input
                             type="text"
                             name="id_cliente"
@@ -102,7 +136,7 @@ const EditVenta = () => {
                         />
                     </div>
                     <div className="form-row">
-                        <label>Componente ID:</label>
+                        <label>{t.idComponent}</label>
                         <input
                             type="text"
                             name="id_componen"
@@ -112,7 +146,7 @@ const EditVenta = () => {
                         />
                     </div>
                     <div className="form-row">
-                        <label>Usuario ID:</label>
+                        <label>{t.idUser}</label>
                         <input
                             type="text"
                             name="Id_usuario"
@@ -122,7 +156,7 @@ const EditVenta = () => {
                         />
                     </div>
                     <div className="form-row">
-                        <label>Monto:</label>
+                        <label>{t.amount}</label>
                         <input
                             type="text"
                             name="Monto"
@@ -132,9 +166,9 @@ const EditVenta = () => {
                         />
                     </div>
                     <div className="form-row">
-                        <label>Fecha y Hora:</label>
+                        <label>{t.dateHour}</label>
                         <input
-                            type="text"
+                            type="date"
                             name="FechaHora"
                             placeholder="Fecha y Hora..."
                             value={formData.FechaHora}
@@ -142,7 +176,7 @@ const EditVenta = () => {
                         />
                     </div>
                     <div className="form-row">
-                        <label>Cancelado:</label>
+                        <label>{t.cancel}</label>
                         <input
                             type="text"
                             name="cancelado"
@@ -153,8 +187,8 @@ const EditVenta = () => {
                     </div>
                 </div>
                 <div className="form-buttons">
-                    <button type="submit" name="modificar">Modificar</button>
-                    <button type="button">Cancelar</button>
+                    <button type="submit" name="modificar">{t.modify}</button>
+                    <button type="button" onClick={handleCancel}>{t.cancel}</button>
                 </div>
             </form>
         </div>
